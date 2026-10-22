@@ -127,7 +127,6 @@ export default function NewAppointment() {
   const [region, setRegion] = useState("");
   const [serviceType, setServiceType] = useState("خدمة الفحص الدوري");
   const [inspectionCenter, setInspectionCenter] = useState("");
-  const [serviceLevel, setServiceLevel] = useState("");
 
   
   // Appointment state
@@ -196,7 +195,7 @@ export default function NewAppointment() {
     
     if (!mapInstanceRef.current) {
       mapInstanceRef.current = L.map(mapRef.current).setView([24.7136, 46.6753], 6);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: '&copy; OpenStreetMap'
       }).addTo(mapInstanceRef.current);
     }
@@ -261,7 +260,6 @@ export default function NewAppointment() {
 
 
     // Service info
-    registrationData['اختيار المستوى'] = serviceLevel;
     registrationData['المنطقة'] = region;
     registrationData['المركز'] = inspectionCenter;
     registrationData['التاريخ'] = appointmentDate;
@@ -281,20 +279,18 @@ export default function NewAppointment() {
     // Save registration data for preview document
     localStorage.setItem('registrationData', JSON.stringify(registrationData));
     
-    // Save selected service name and price to localStorage
-    // Use serviceLevel (from dropdown) as the service name
-    const selectedServiceName = serviceLevel || localStorage.getItem('selectedService') || 'خدمات رخصة القيادة';
+    // Save selected service name for nafath page
     const urlParams2 = new URLSearchParams(window.location.search);
-    const selectedPrice = urlParams2.get('price') || localStorage.getItem('selectedPrice') || '';
+    const selectedServiceName = urlParams2.get('service') || 'خدمات رخصة القيادة';
     localStorage.setItem('selectedService', selectedServiceName);
-    if (selectedPrice) localStorage.setItem('selectedPrice', selectedPrice);
     
     // Show spinner and navigate after 3 seconds
     setIsSubmitting(true);
     setTimeout(() => {
-      // Use URL params first, then localStorage as fallback
-      const service = selectedServiceName;
-      const price = selectedPrice;
+      // Pass service name and price from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const service = urlParams.get('service') || '';
+      const price = urlParams.get('price') || '';
       if (service && price) {
         clientNavigate(`/summary-payment?service=${encodeURIComponent(service)}&price=${price}`);
       } else {
@@ -536,33 +532,6 @@ export default function NewAppointment() {
 
             </div>
           )}
-
-          {/* Service Level */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium">إختيار المستوى<span className="text-red-500">*</span></label>
-            <select
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              value={serviceLevel}
-              onChange={(e) => { setServiceLevel(e.target.value); if (e.target.value) setFormErrors(prev => { const n = {...prev}; delete n.serviceLevel; return n; }); }}
-            >
-              <option value="">إختيار المستوى</option>
-              <option value="برنامج 30 ساعة">برنامج 30 ساعة</option>
-              <option value="برنامج 15 ساعة">برنامج 15 ساعة</option>
-              <option value="برنامج 12 ساعة">برنامج 12 ساعة</option>
-              <option value="برنامج 6 ساعات">برنامج 6 ساعات</option>
-              <option value="تحديد مستوى">تحديد مستوى</option>
-              <option value="سداد رسوم">سداد رسوم</option>
-              <option value="موعد مسبق">موعد مسبق</option>
-              <option value="إختبار عملي">إختبار عملي</option>
-              <option value="تدريب عملي">تدريب عملي</option>
-              <option value="إختبار نظري">إختبار نظري</option>
-              <option value="تدريب نظري">تدريب نظري</option>
-              <option value="حجز موعد لاصدار الشهادة الصحية">حجز موعد لاصدار الشهادة الصحية</option>
-              <option value="تجديد رخصة">تجديد رخصة</option>
-              <option value="طباعة رخصة">طباعة رخصة</option>
-            </select>
-            {formErrors.serviceLevel && <p className="text-red-500 text-xs mt-1">{formErrors.serviceLevel}</p>}
-          </div>
 
           {/* Service Center */}
           <h5 className="font-semibold mb-4 mt-8" style={{ color: '#233f48'}}>المركز</h5>
