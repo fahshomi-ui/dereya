@@ -645,6 +645,8 @@ function buildAllowedOrigins() {
   // Always allow localhost for development
   origins.push('http://localhost:5173');
   origins.push('http://localhost');
+/* ORIGIN-ONRENDER-V1 */
+origins.push('https://odaidalleh.onrender.com');
   return origins;
 }
 
