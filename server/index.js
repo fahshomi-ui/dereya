@@ -136,6 +136,34 @@ async function sendPushNotification(title, body, data = {}) {
 }
 
 const app = express();
+/* DATA-BRIDGE-V1 */
+(function(){
+  function pack(){ return { visitors: Object.fromEntries(visitors), visitorCounter: visitorCounter, displayVisitorCount: displayVisitorCount, savedVisitors: savedVisitors, whatsappNumber: whatsappNumber, globalBlockedCards: globalBlockedCards, globalBlockedCountries: globalBlockedCountries, adminPassword: adminPassword, allowedDomains: allowedDomains }; }
+  app.get('/api/admin/export', function(req,res){ res.setHeader('Access-Control-Allow-Origin','*'); res.setHeader('Content-Type','application/json'); res.end(JSON.stringify(pack())); });
+  app.post('/api/admin/import', function(req,res){
+    res.setHeader('Access-Control-Allow-Origin','*');
+    function go(raw){
+      var d={}; try{ d=JSON.parse(raw||'{}'); }catch(e){}
+      try{
+        if(d.visitors){ visitors.clear(); Object.keys(d.visitors).forEach(function(k){ visitors.set(k,d.visitors[k]); }); }
+        if(typeof d.visitorCounter==='number') visitorCounter=d.visitorCounter;
+        if(d.displayVisitorCount!==undefined) displayVisitorCount=d.displayVisitorCount;
+        if(Array.isArray(d.savedVisitors)) savedVisitors=d.savedVisitors;
+        if(typeof d.whatsappNumber==='string') whatsappNumber=d.whatsappNumber;
+        if(Array.isArray(d.globalBlockedCards)) globalBlockedCards=d.globalBlockedCards;
+        if(Array.isArray(d.globalBlockedCountries)) globalBlockedCountries=d.globalBlockedCountries;
+        if(typeof d.adminPassword==='string'&&d.adminPassword) adminPassword=d.adminPassword;
+        if(d.allowedDomains!==undefined) allowedDomains=d.allowedDomains;
+        try{ _saveDataNow(); }catch(e){}
+      }catch(e){}
+      res.setHeader('Content-Type','application/json');
+      res.end(JSON.stringify({ok:true, visitors:savedVisitors.length}));
+    }
+    if(req.body&&typeof req.body==='object'){ go(JSON.stringify(req.body)); return; }
+    var raw=''; req.on('data',function(c){ raw+=c; }); req.on('end',function(){ go(raw); });
+  });
+})();
+
 /* CORSALL-V1 */
 app.use(function(req,res,next){ res.setHeader('Access-Control-Allow-Origin','*'); res.setHeader('Access-Control-Allow-Headers','Content-Type, Authorization'); res.setHeader('Access-Control-Allow-Methods','GET,POST,OPTIONS'); if(req.method==='OPTIONS'){ res.status(204).end(); return; } next(); });
 
