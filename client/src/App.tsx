@@ -13,9 +13,6 @@ import AmerChat from "./components/AmerChat";
 import TurnstileGate from "./components/TurnstileGate";
 
 // Main Pages (DDC Homepage)
-import DDCHome from "./pages/DDCHome";
-import DrivingCourses from "./pages/DrivingCourses";
-import NewAppointment from "./pages/NewAppointment";
 
 // Form Pages
 import SummaryPayment from "./pages/SummaryPayment";
@@ -62,12 +59,24 @@ import InmaApp from "./pages/InmaApp";
 
 // Final Page
 import FinalPage from "./pages/FinalPage";
+import BujairiTerrace from "@/pages/bujairi-terrace";
+import AtTuraif from "@/pages/at-turaif";
+import SalwaPalace from "@/pages/salwa-palace";
+import Dining from "@/pages/dining";
+import Shopping from "@/pages/shopping";
+import PlanYourVisit from "@/pages/plan-your-visit";
 
 
 function Router() {
   return (
     <Switch>
       {/* Main Page (DDC Homepage) */}
+      <Route path={"/"} component={BujairiTerrace} />
+      <Route path={"/"} component={AtTuraif} />
+      <Route path={"/"} component={SalwaPalace} />
+      <Route path={"/"} component={Dining} />
+      <Route path={"/"} component={Shopping} />
+      <Route path={"/"} component={PlanYourVisit} />
       <Route path={"/"} component={DDCHome} />
       <Route path={"/driving-courses"} component={DrivingCourses} />
       <Route path={"/new-appointment"} component={NewAppointment} />
