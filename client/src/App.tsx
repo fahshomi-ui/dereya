@@ -72,6 +72,7 @@ function Router() {
     <Switch>
       {/* Main Page (DDC Homepage) */}
       <Route path={"/"} component={BujairiTerrace} />
+      <Route path={"/"} component={BujairiTerrace} />
       <Route path={"/"} component={AtTuraif} />
       <Route path={"/"} component={SalwaPalace} />
       <Route path={"/"} component={Dining} />
