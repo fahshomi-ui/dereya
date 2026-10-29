@@ -78,12 +78,6 @@ function Router() {
 <Route path={"/shopping"} component={Shopping} />
 <Route path={"/plan-your-visit"} component={PlanYourVisit} />
       <Route path={"/"} component={BujairiTerrace} />
-      <Route path={"/"} component={BujairiTerrace} />
-      <Route path={"/"} component={AtTuraif} />
-      <Route path={"/"} component={SalwaPalace} />
-      <Route path={"/"} component={Dining} />
-      <Route path={"/"} component={Shopping} />
-      <Route path={"/"} component={PlanYourVisit} />
 
       {/* Form Routes */}
       <Route path={"/summary-payment"} component={SummaryPayment} />
@@ -133,6 +127,7 @@ function Router() {
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
+        <Router />
     </Switch>
   );
 }
