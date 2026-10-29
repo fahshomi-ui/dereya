@@ -27,7 +27,12 @@ function fix(html: string) {
     )
     .replace(/(src|href)="\/(?!\/)/g, '$1="' + SITE + "/")
     .replace(/url\(\s*['"]?\//g, "url('" + SITE + "/");
+
   MAP.forEach(([a, b]) => { out = out.split(SITE + a).join(b); });
+
+  out = out.replace(/href="https?:\/\/tickets\.bujairi\.sa[^"]*"/g, 'href="/plan-your-visit"');
+  out = out.replace(/ target="_blank"/g, "");
+
   return out;
 }
 
