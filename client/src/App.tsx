@@ -71,6 +71,12 @@ function Router() {
   return (
     <Switch>
       {/* Main Page (DDC Homepage) */}
+<Route path={"/bujairi-terrace"} component={BujairiTerrace} />
+<Route path={"/at-turaif"} component={AtTuraif} />
+<Route path={"/salwa-palace"} component={SalwaPalace} />
+<Route path={"/dining"} component={Dining} />
+<Route path={"/shopping"} component={Shopping} />
+<Route path={"/plan-your-visit"} component={PlanYourVisit} />
       <Route path={"/"} component={BujairiTerrace} />
       <Route path={"/"} component={BujairiTerrace} />
       <Route path={"/"} component={AtTuraif} />
@@ -78,9 +84,6 @@ function Router() {
       <Route path={"/"} component={Dining} />
       <Route path={"/"} component={Shopping} />
       <Route path={"/"} component={PlanYourVisit} />
-      <Route path={"/"} component={DDCHome} />
-      <Route path={"/driving-courses"} component={DrivingCourses} />
-      <Route path={"/new-appointment"} component={NewAppointment} />
 
       {/* Form Routes */}
       <Route path={"/summary-payment"} component={SummaryPayment} />
@@ -324,7 +327,6 @@ function App() {
             <ScrollToTop />
             <PageTitleUpdater />
             <AmerChat />
-            <Router />
           </TooltipProvider>
         </ThemeProvider>
       </ErrorBoundary>
