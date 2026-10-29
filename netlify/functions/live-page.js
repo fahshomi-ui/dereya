@@ -5,13 +5,14 @@ export const handler = async (event) => {
   }
   try {
     const r = await fetch("https://www.diriyah.sa" + p, { headers: { "user-agent": "Mozilla/5.0" } });
-    const t = await r.text();
+    let t = await r.text();
+    t = t.replace(/<head([^>]*)>/i, '<head$1><base href="https://www.diriyah.sa/">');
     return {
       statusCode: 200,
       headers: {
         "content-type": "text/html; charset=utf-8",
-        "access-control-allow-origin": "*",
         "cache-control": "no-store",
+        "access-control-allow-origin": "*",
       },
       body: t,
     };
