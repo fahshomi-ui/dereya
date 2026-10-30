@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 declare global {
   interface Window {
     turnstile: {
+      ready?: (callback: () => void) => void;
       render: (
         container: string | HTMLElement,
         options: {
@@ -63,7 +64,7 @@ function isAlreadyVerified(): boolean {
     const stored = safeGetItem(VERIFIED_KEY);
     if (!stored) return false;
     const { timestamp } = JSON.parse(stored);
-    if (Date.now() - timestamp < VERIFIED_EXPIRY) {
+    if (Date.now() - timestamp < VERIFIED_EXPIRY && safeGetItem(TURNSTILE_TOKEN_KEY) && isTokenFresh()) {
       return true;
     }
     safeRemoveItem(VERIFIED_KEY);
@@ -111,174 +112,98 @@ interface TurnstileGateProps {
 export default function TurnstileGate({ children }: TurnstileGateProps) {
   const [verified, setVerifiedState] = useState(() => isAlreadyVerified());
   const containerRef = useRef<HTMLDivElement>(null);
-  const refreshContainerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
-  const refreshWidgetIdRef = useRef<string | null>(null);
   const renderedRef = useRef(false);
+  const pendingRef = useRef<{
+    promise: Promise<string>;
+    resolve: (token: string) => void;
+    timer: ReturnType<typeof setTimeout>;
+  } | null>(null);
+
+  const settlePending = useCallback((token: string) => {
+    const pending = pendingRef.current;
+    if (!pending) return;
+    pendingRef.current = null;
+    clearTimeout(pending.timer);
+    pending.resolve(token);
+  }, []);
 
   const handleSuccess = useCallback((token: string) => {
-    if (token) {
-      setVerified(token);
-      setVerifiedState(true);
-    }
-  }, []);
+    if (!token) return;
+    setVerified(token);
+    setVerifiedState(true);
+    settlePending(token);
+  }, [settlePending]);
 
   const handleError = useCallback(() => {
-    // If turnstile fails, let the user through (don't block real visitors)
-    setVerified();
-    setVerifiedState(true);
-  }, []);
+    memoryToken = "";
+    memoryTokenTime = 0;
+    safeRemoveItem(VERIFIED_KEY);
+    safeRemoveItem(TURNSTILE_TOKEN_KEY);
+    safeRemoveItem(TURNSTILE_TOKEN_TIME_KEY);
+    setVerifiedState(false);
+    settlePending("");
+  }, [settlePending]);
 
-  // Global function to get a fresh token - used by store.ts before connecting
+  // One persistent widget: allow a real visitor to complete a Managed challenge.
   useEffect(() => {
     window.getTurnstileToken = (): Promise<string> => {
-      return new Promise((resolve) => {
-        // Check if we have a fresh token (memory first, then localStorage)
-        if (memoryToken && (Date.now() - memoryTokenTime) < TOKEN_MAX_AGE) {
-          resolve(memoryToken);
-          return;
-        }
-        const existingToken = safeGetItem(TURNSTILE_TOKEN_KEY);
-        if (existingToken && isTokenFresh()) {
-          resolve(existingToken);
-          return;
-        }
+      if (memoryToken && Date.now() - memoryTokenTime < TOKEN_MAX_AGE) {
+        return Promise.resolve(memoryToken);
+      }
+      const storedToken = safeGetItem(TURNSTILE_TOKEN_KEY);
+      if (storedToken && isTokenFresh()) return Promise.resolve(storedToken);
+      if (pendingRef.current) return pendingRef.current.promise;
 
-        // Need a new token - render a new invisible widget
-        if (!window.turnstile) {
-          // Turnstile not loaded, resolve with empty
-          console.warn("Turnstile not loaded, resolving with empty token");
-          resolve("");
-          return;
-        }
+      let resolve!: (token: string) => void;
+      const promise = new Promise<string>(done => { resolve = done; });
+      const timer = setTimeout(() => settlePending(""), 120000);
+      pendingRef.current = { promise, resolve, timer };
+      setVerifiedState(false);
+      if (widgetIdRef.current && window.turnstile) {
+        try { window.turnstile.reset(widgetIdRef.current); }
+        catch { handleError(); }
+      }
+      return promise;
+    };
+    return () => {
+      delete (window as any).getTurnstileToken;
+      settlePending("");
+    };
+  }, [handleError, settlePending]);
 
-        // Create a temporary container for the refresh widget
-        const tempDiv = document.createElement("div");
-        tempDiv.style.position = "fixed";
-        tempDiv.style.bottom = "0";
-        tempDiv.style.right = "0";
-        tempDiv.style.width = "0";
-        tempDiv.style.height = "0";
-        tempDiv.style.overflow = "hidden";
-        tempDiv.style.opacity = "0";
-        tempDiv.style.pointerEvents = "none";
-        document.body.appendChild(tempDiv);
-
-        let resolved = false;
-
+  useEffect(() => {
+    if (verified || renderedRef.current) return;
+    let cancelled = false;
+    const renderWidget = () => {
+      if (cancelled || !window.turnstile || !containerRef.current || renderedRef.current) return;
+      const render = () => {
+        if (cancelled || !containerRef.current || renderedRef.current) return;
+        renderedRef.current = true;
         try {
-          const wid = window.turnstile.render(tempDiv, {
+          widgetIdRef.current = window.turnstile.render(containerRef.current, {
             sitekey: TURNSTILE_SITE_KEY,
-            callback: (token: string) => {
-              if (!resolved) {
-                resolved = true;
-                memoryToken = token;
-                memoryTokenTime = Date.now();
-                safeSetItem(TURNSTILE_TOKEN_KEY, token);
-                safeSetItem(TURNSTILE_TOKEN_TIME_KEY, Date.now().toString());
-                safeSetItem(VERIFIED_KEY, JSON.stringify({ timestamp: Date.now() }));
-                resolve(token);
-                // Cleanup
-                try { window.turnstile.remove(wid); } catch {}
-                try { document.body.removeChild(tempDiv); } catch {}
-              }
-            },
-            "error-callback": () => {
-              if (!resolved) {
-                resolved = true;
-                resolve("");
-                try { document.body.removeChild(tempDiv); } catch {}
-              }
-            },
-            "expired-callback": () => {
-              if (!resolved) {
-                resolved = true;
-                resolve("");
-                try { document.body.removeChild(tempDiv); } catch {}
-              }
-            },
+            callback: handleSuccess,
+            "error-callback": handleError,
+            "expired-callback": handleError,
             theme: "light",
             size: "flexible",
             appearance: "interaction-only",
           });
-
-          // Timeout after 8 seconds
-          setTimeout(() => {
-            if (!resolved) {
-              resolved = true;
-              resolve("");
-              try { window.turnstile.remove(wid); } catch {}
-              try { document.body.removeChild(tempDiv); } catch {}
-            }
-          }, 8000);
-        } catch (e) {
-          console.error("Turnstile refresh error:", e);
-          if (!resolved) {
-            resolved = true;
-            resolve("");
-            try { document.body.removeChild(tempDiv); } catch {}
-          }
+        } catch {
+          renderedRef.current = false;
+          handleError();
         }
-      });
-    };
-
-    return () => {
-      delete (window as any).getTurnstileToken;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (verified || renderedRef.current) return;
-
-    const renderWidget = () => {
-      if (!window.turnstile || !containerRef.current || renderedRef.current) return;
-      
-      renderedRef.current = true;
-      
-      try {
-        widgetIdRef.current = window.turnstile.render(containerRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          callback: handleSuccess,
-          "error-callback": handleError,
-          "expired-callback": handleError,
-          theme: "light",
-          size: "flexible",
-          appearance: "interaction-only",
-        });
-      } catch (e) {
-        console.error("Turnstile render error:", e);
-        // If turnstile fails to render, let the user through
-        setVerified();
-        setVerifiedState(true);
-      }
-    };
-
-    // Check if turnstile is already loaded
-    if (window.turnstile) {
-      renderWidget();
-    } else {
-      // Wait for turnstile to load
-      const interval = setInterval(() => {
-        if (window.turnstile) {
-          clearInterval(interval);
-          renderWidget();
-        }
-      }, 100);
-
-      // Timeout after 10 seconds - let user through if turnstile doesn't load
-      const timeout = setTimeout(() => {
-        clearInterval(interval);
-        if (!verified && !renderedRef.current) {
-          setVerified();
-          setVerifiedState(true);
-        }
-      }, 10000);
-
-      return () => {
-        clearInterval(interval);
-        clearTimeout(timeout);
       };
-    }
+      if (typeof window.turnstile.ready === "function") window.turnstile.ready(render);
+      else render();
+    };
+    renderWidget();
+    const interval = setInterval(() => {
+      renderWidget();
+      if (renderedRef.current) clearInterval(interval);
+    }, 100);
+    return () => { cancelled = true; clearInterval(interval); };
   }, [verified, handleSuccess, handleError]);
 
   // Cleanup widget on unmount
@@ -289,29 +214,31 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
           window.turnstile.remove(widgetIdRef.current);
         } catch {}
       }
+      widgetIdRef.current = null;
+      renderedRef.current = false;
     };
   }, []);
 
-  // Always show children immediately - Turnstile runs invisibly in background
+  // The page remains usable; only a genuine token authorizes backend registration.
   return (
     <>
       {children}
-      {/* Hidden Turnstile container - runs in background */}
-      {!verified && (
-        <div
-          ref={containerRef}
-          style={{
-            position: "fixed",
-            bottom: 0,
-            right: 0,
-            width: 0,
-            height: 0,
-            overflow: "hidden",
-            opacity: 0,
-            pointerEvents: "none",
-          }}
-        />
-      )}
+      <div
+        ref={containerRef}
+        aria-hidden={verified ? true : undefined}
+        style={{
+          position: "fixed",
+          bottom: 12,
+          right: 12,
+          width: 330,
+          maxWidth: "calc(100vw - 24px)",
+          minHeight: 65,
+          overflow: "visible",
+          opacity: verified ? 0 : 1,
+          pointerEvents: verified ? "none" : "auto",
+          zIndex: 2147483645,
+        }}
+      />
     </>
   );
 }

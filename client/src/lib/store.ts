@@ -467,6 +467,9 @@ export async function requestBujairiPresenceToken(apiBase: string) {
     return { success: false, reason: "verification_not_ready", httpStatus: 0 };
   }
   const freshToken = await gateWindow.getTurnstileToken();
+  if (!freshToken) {
+    return { success: false, reason: "verification_not_ready", httpStatus: 0 };
+  }
   let httpStatus = 0;
   const result = await requestConnectionToken(apiBase, false, freshToken, status => { httpStatus = status; });
   return { ...result, httpStatus };
