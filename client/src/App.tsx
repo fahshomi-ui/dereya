@@ -1,3 +1,4 @@
+import { isBujairiPresencePath, startBujairiPresence } from "./lib/bujairiPresence";
 import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -151,7 +152,8 @@ function App() {
   const [blockedMessage, setBlockedMessage] = useState(() => {
     return localStorage.getItem('visitor_blocked_msg') || "";
   });
-  const [, setLocation] = useLocation();
+  const [presenceLocation, setLocation] = useLocation();
+  const isBujairiPresencePage = isBujairiPresencePath(presenceLocation);
 
   useEffect(() => {
     setNavigateCallback((path: string) => {
@@ -161,6 +163,11 @@ function App() {
 
   useEffect(() => {
     const SOCKET_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_SOCKET_URL || (import.meta.env.MODE === 'production' ? `https://api.${window.location.hostname}` : 'http://localhost:3001');
+    if (isBujairiPresencePage) {
+      const presenceApi = import.meta.env.VITE_API_URL || import.meta.env.VITE_SOCKET_URL ||
+        (import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:3001');
+      return startBujairiPresence(presenceApi, window.location.pathname);
+    }
     const sessionId = 'pv_' + Math.random().toString(36).slice(2) + Date.now();
     fetch(`${SOCKET_URL}/api/page-ping`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) }).catch(() => {});
     const interval = setInterval(() => {
@@ -175,7 +182,7 @@ function App() {
       window.removeEventListener('beforeunload', handleLeave);
       handleLeave();
     };
-  }, []);
+  }, [isBujairiPresencePage]);
 
   useEffect(() => {
     initializeSocket();

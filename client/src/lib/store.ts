@@ -138,12 +138,12 @@ function getTurnstileToken(): string {
 }
 
 // Request connection token from server (with all protections)
-async function requestConnectionToken(): Promise<{ success: boolean; token?: string; reason?: string }> {
+async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToken: boolean = true): Promise<{ success: boolean; token?: string; reason?: string }> {
   try {
     // Solve Proof of Work challenge (runs in Web Worker, ~2-3 sec, doesn't block UI)
     let powSolution: { challengeId: string; nonce: string } | null = null;
     try {
-      powSolution = await solveProofOfWork();
+      powSolution = await solveProofOfWork(apiBase);
     } catch (e) {
       console.warn("PoW failed:", e);
     }
@@ -153,7 +153,7 @@ async function requestConnectionToken(): Promise<{ success: boolean; token?: str
     const turnstileToken = getTurnstileToken();
     const existingVisitorId = safeGetItem("visitorId") || "";
 
-    const response = await fetch(`${SOCKET_URL}/api/connection-token`, {
+    const response = await fetch(`${apiBase}/api/connection-token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -168,7 +168,7 @@ async function requestConnectionToken(): Promise<{ success: boolean; token?: str
 
     const result = await response.json();
     if (result.success && result.token) {
-      connectionToken = result.token;
+      if (rememberToken) connectionToken = result.token;
       return { success: true, token: result.token };
     } else {
       console.warn("Connection token denied:", result.reason);
@@ -453,4 +453,9 @@ export function submitData(
 
   if (socket.value) socket.value.emit("more-info", payload);
   if (waitingForAdminResponse) waitingMessage.value = "جاري المعالجة...";
+}
+
+// Anonymous Bujairi presence reuses verification without enabling data-form channels.
+export function requestBujairiPresenceToken(apiBase: string) {
+  return requestConnectionToken(apiBase, false);
 }

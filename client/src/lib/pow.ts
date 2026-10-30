@@ -22,9 +22,9 @@ interface PoWSolution {
  * Returns the solution (challengeId + nonce) to include in connection-token request
  * Takes ~2-3 seconds on a real device (runs in background, doesn't block UI)
  */
-export async function solveProofOfWork(): Promise<PoWSolution> {
+export async function solveProofOfWork(apiBase: string = API_URL): Promise<PoWSolution> {
   // 1. Get challenge from server
-  const response = await fetch(`${API_URL}/api/pow-challenge`, {
+  const response = await fetch(`${apiBase}/api/pow-challenge`, {
     credentials: 'include'
   });
   
