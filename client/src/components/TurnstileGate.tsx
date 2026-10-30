@@ -195,8 +195,8 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
           handleError();
         }
       };
-      if (typeof window.turnstile.ready === "function") window.turnstile.ready(render);
-      else render();
+      // The async/defer explicit SDK is already available here; ready() rejects that loading mode.
+      render();
     };
     renderWidget();
     const interval = setInterval(() => {
