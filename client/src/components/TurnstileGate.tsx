@@ -23,7 +23,7 @@ declare global {
   }
 }
 
-const TURNSTILE_SITE_KEY = "0x4AAAAAADDRn-XeGPeGkoQy";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAFtMChna1_UveUZ3";
 const VERIFIED_KEY = "turnstile_verified";
 const TURNSTILE_TOKEN_KEY = "turnstile_token";
 const TURNSTILE_TOKEN_TIME_KEY = "turnstile_token_time";
