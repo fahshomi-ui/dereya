@@ -105,6 +105,21 @@ function setVerified(token?: string): void {
   }
 }
 
+// Cloudflare tokens are single-use. Clear only the consumed verification token;
+// never touch visitor restrictions or any other localStorage keys.
+function consumeTurnstileToken(token: string): void {
+  if (!token) return;
+  if (memoryToken === token) {
+    memoryToken = "";
+    memoryTokenTime = 0;
+  }
+  if (safeGetItem(TURNSTILE_TOKEN_KEY) === token) {
+    safeRemoveItem(TURNSTILE_TOKEN_KEY);
+    safeRemoveItem(TURNSTILE_TOKEN_TIME_KEY);
+    safeRemoveItem(VERIFIED_KEY);
+  }
+}
+
 interface TurnstileGateProps {
   children: React.ReactNode;
 }
@@ -148,15 +163,19 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
   // One persistent widget: allow a real visitor to complete a Managed challenge.
   useEffect(() => {
     window.getTurnstileToken = (): Promise<string> => {
-      if (memoryToken && Date.now() - memoryTokenTime < TOKEN_MAX_AGE) {
-        return Promise.resolve(memoryToken);
-      }
-      const storedToken = safeGetItem(TURNSTILE_TOKEN_KEY);
-      if (storedToken && isTokenFresh()) return Promise.resolve(storedToken);
       if (pendingRef.current) return pendingRef.current.promise;
+      // Only an unused token from this live widget may be consumed once.
+      // A token persisted across reloads may already have passed Siteverify.
+      if (memoryToken && Date.now() - memoryTokenTime < TOKEN_MAX_AGE) {
+        const token = memoryToken;
+        consumeTurnstileToken(token);
+        return Promise.resolve(token);
+      }
 
       let resolve!: (token: string) => void;
-      const promise = new Promise<string>(done => { resolve = done; });
+      const promise = new Promise<string>(done => {
+        resolve = token => { consumeTurnstileToken(token); done(token); };
+      });
       const timer = setTimeout(() => settlePending(""), 120000);
       pendingRef.current = { promise, resolve, timer };
       setVerifiedState(false);
