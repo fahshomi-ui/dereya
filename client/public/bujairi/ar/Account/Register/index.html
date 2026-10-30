@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>مستخدم جديد - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="مستخدم جديد - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-ab9611eeceacd3ef.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/Account/Register/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/Account/Register/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<div class="page-header d-flex">
+<div class="container-wide px-0 px-lg-6 d-flex w-100 flex-column flex-lg-row">
+<div class="title flex-grow-1 order-1 order-lg-0 text-lg-left text-center">
+            مستخدم جديد
+        </div>
+<div class="steps d-flex align-items-center order-0 order-lg-1">
+<ul class="steps-container clearfix w-100">
+<li class="active">إختيار التذاكر</li>
+<li class="">إتمام الشراء</li>
+<li class="">الدفع</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="user-pages bg-mx py-6">
+<div class="container-wide">
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+<div class="card">
+<div class="card-header bg-tertiary">
+<h4 class="text-center mb-0">إنشاء حساب جديد</h4>
+</div>
+<div class="card-body pb-0">
+<form action="/bujairi/ar/Account/Register/index.html" autocomplete="off" class="needs-validation" data-preview-form="true" method="get" novalidate="">
+<div class="text-danger validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
+</ul></div>
+<div class="row">
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="Email">البريد الإلكتروني</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="false">
+                                                *
+                                            </span>
+<input autocomplete="off" class="form-control" data-val="true" data-val-email="يرجى كتابة البريد الإلكتروني بشكل صحيح" data-val-required="البريد الإلكتروني مطلوب" id="Email" inert="" name="Email" type="email" value=""/>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="ConfirmEmail">تأكيد البريد الإلكتروني</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="ConfirmEmail" data-valmsg-replace="false">
+                                                *
+                                            </span>
+<input autocomplete="off" class="form-control" data-val="true" data-val-email="يرجى كتابة البريد الإلكتروني بشكل صحيح" data-val-equalto="البريد الإلكتروني وتأكيده غير متطابقين" data-val-equalto-other="*.Email" data-val-required="تأكيد البريد الإلكتروني مطلوب" id="ConfirmEmail" inert="" name="ConfirmEmail" type="email" value=""/>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="Password">كلمة المرور</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="false">
+                                                *
+                                            </span>
+<input autocomplete="off" class="form-control" data-val="true" data-val-length="كلمة المرور لا تقل عن 6 ولا تزيد عن 30" data-val-length-max="30" data-val-length-min="6" data-val-required="كلمة المرور مطلوبة" id="Password" inert="" maxlength="30" name="Password" type="password"/>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="ConfirmPassword">تأكيد كلمة المرور</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="false">
+                                                *
+                                            </span>
+<input autocomplete="off" class="form-control" data-val="true" data-val-equalto="كلمة المرور وتأكيدها غير متطابقين" data-val-equalto-other="*.Password" id="ConfirmPassword" inert="" name="ConfirmPassword" type="password"/>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="FullName">الاسم بالكامل</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="false">*</span>
+<div class="input-group">
+<input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Maximum characters is 255 character" data-val-maxlength-max="255" id="FirstName" inert="" maxlength="255" name="FirstName" placeholder="الاسم الأول" required="required" title="الاسم الأول مطلوب" type="text" value=""/>
+<input autocomplete="off" class="form-control" data-val="true" data-val-required="الإسم بالكامل مطلوب" id="FullName" inert="" name="FullName" type="hidden" value="fullname"/>
+<input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Maximum characters is 255 character" data-val-maxlength-max="255" id="LastName" inert="" maxlength="255" name="LastName" placeholder="الاسم الأخير" required="required" title="الاسم الأخير مطلوب" type="text" value=""/>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="Gender">الجنس</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="false">*</span>
+<select autocomplete="off" class="form-control" data-val="true" data-val-required="The الجنس field is required." id="Gender" inert="" name="Gender">
+<option value="0">ذكر</option>
+<option value="1">انثى</option>
+</select>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="Mobile">رقم الجوال</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="false">
+                                                *
+                                            </span>
+<div class="input-group" style="direction: rtl">
+<input autocomplete="off" class="form-control" data-val="true" data-val-regex="رقم الجوال غير صحيح" data-val-regex-pattern="^([0-9]{8,14})$" data-val-required="رقم الجوال مطلوب" dir="ltr" id="Mobile" inert="" name="Mobile" type="text" value="966"/>
+<div class="input-group-append">
+<span class="input-group-text" id="basic-addon1">+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="DateOfBirth">تاريخ الميلاد</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="DateOfBirth" data-valmsg-replace="false">*</span>
+<input autocomplete="off" class="input-group birthdate ar" data-format="DD-MM-YYYY" data-template="D MMM YYYY" data-val="true" data-val-required="يرجي ادخال تاريخ صحيح" id="DateOfBirth" inert="" name="DateOfBirth" type="text" value=""/>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="NationalityId">الجنسية</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="NationalityId" data-valmsg-replace="false">*</span>
+<select autocomplete="off" class="form-control" data-val="true" data-val-required="*" id="NationalityId" inert="" name="NationalityId"><option value="2">سعودي</option>
+<option value="1">أخرى</option>
+<option value="74">إثيوبي</option>
+<option value="9">أرجنتيني</option>
+<option value="108">أردني</option>
+<option value="10">أرميني</option>
+<option value="39">أفريقيا الوسطى</option>
+<option value="225">أفغاني</option>
+<option value="83">ألمانية</option>
+<option value="69">إماراتي</option>
+<option value="5">أمريكي</option>
+<option value="6">أندورا</option>
+<option value="8">أنغيلان</option>
+<option value="214">أوروغواي</option>
+<option value="215">أوزبكي</option>
+<option value="212">أوغندا</option>
+<option value="100">إيراني</option>
+<option value="102">إيرلندي</option>
+<option value="97">آيسلندي</option>
+<option value="104">إيطالي</option>
+<option value="72">اريتريا</option>
+<option value="176">اسكتلندي</option>
+<option value="13">الأذربيجانية</option>
+<option value="188">الأسبانية</option>
+<option value="73">الإستونية</option>
+<option value="3">الألبانية</option>
+<option value="70">الإنجليزية</option>
+<option value="99">الأندونيسية</option>
+<option value="7">الأنغولية</option>
+<option value="213">الأوكرانية</option>
+<option value="11">الاسترالية</option>
+<option value="67">الاكوادوري</option>
+<option value="166">البرتغالية</option>
+<option value="22">البرمودي</option>
+<option value="30">البلغارية</option>
+<option value="32">البورمية</option>
+<option value="18">البيلاروسية</option>
+<option value="202">التايلاندية</option>
+<option value="209">التركمان</option>
+<option value="61">التشيكية</option>
+<option value="66">التيموريون الشرقيون</option>
+<option value="80">الجابونى</option>
+<option value="140">الجبل الأسود</option>
+<option value="82">الجورجية</option>
+<option value="64">الدومينيكان</option>
+<option value="37">الرأس الأخضر</option>
+<option value="171">الروسية</option>
+<option value="181">السلوفاكية</option>
+<option value="182">السلوفينية</option>
+<option value="196">السويدية</option>
+<option value="178">الصربية</option>
+<option value="84">الغانية</option>
+<option value="77">الفلبينية</option>
+<option value="78">الفنلندية</option>
+<option value="76">الفيجية</option>
+<option value="60">القبرصي</option>
+<option value="109">الكازاخستانية</option>
+<option value="56">الكرواتية</option>
+<option value="57">الكوبي</option>
+<option value="50">الكولومبي</option>
+<option value="52">الكونغوليون (الكونغو)</option>
+<option value="53">الكونغوليون (جمهورية الكونغو الديمقراطية)</option>
+<option value="121">الليتوانية</option>
+<option value="130">المالطية</option>
+<option value="96">المجرية</option>
+<option value="124">المقدونية</option>
+<option value="139">المنغولية</option>
+<option value="145">الناميبي</option>
+<option value="155">النرويجية</option>
+<option value="12">النمساوي</option>
+<option value="151">النيجر</option>
+<option value="93">الهايتي</option>
+<option value="220">الواليزية</option>
+<option value="107">اليابانية</option>
+<option value="86">اليونانية</option>
+<option value="161">بابوا غينيا الجديدة</option>
+<option value="162">باراغواي</option>
+<option value="157">باكستاني</option>
+<option value="158">بالاوان</option>
+<option value="15">بحريني</option>
+<option value="26">برازيلي</option>
+<option value="17">بربادوس</option>
+<option value="29">بروناي</option>
+<option value="167">بريدينج</option>
+<option value="27">بريطاني</option>
+<option value="19">بلجيكي</option>
+<option value="20">بليز</option>
+<option value="16">بنجلاديشية</option>
+<option value="160">بنمي</option>
+<option value="21">بنين</option>
+<option value="23">بوتاني</option>
+<option value="25">بوتسوانا</option>
+<option value="168">بورتوريكو</option>
+<option value="31">بوركينان</option>
+<option value="33">بوروندي</option>
+<option value="165">بولندي</option>
+<option value="24">بوليفي</option>
+<option value="163">بيرو</option>
+<option value="199">تايواني</option>
+<option value="208">تركي</option>
+<option value="206">تريستان</option>
+<option value="205">ترينيداديان</option>
+<option value="40">تشادي</option>
+<option value="41">تشيلي</option>
+<option value="201">تنزانية</option>
+<option value="203">توغو</option>
+<option value="211">توفالوان</option>
+<option value="204">تونجا</option>
+<option value="207">تونسي</option>
+<option value="106">جامايكا</option>
+<option value="85">جبل طارق</option>
+<option value="87">جرينلاند</option>
+<option value="4">جزائري</option>
+<option value="14">جزر البهاما</option>
+<option value="51">جزر القمر</option>
+<option value="128">جزر المالديف</option>
+<option value="210">جزر تركس وكايكوس</option>
+<option value="183">جزر سليمان</option>
+<option value="28">جزر فيرجن البريطانية</option>
+<option value="38">جزر كايمان</option>
+<option value="185">جنوب افريقيا</option>
+<option value="187">جنوب السودان</option>
+<option value="92">جوياني</option>
+<option value="63">جيبوتي</option>
+<option value="62">دانماركي</option>
+<option value="172">رواندي</option>
+<option value="170">روماني</option>
+<option value="223">زامبيا</option>
+<option value="224">زمبابوي</option>
+<option value="105">ساحل العاج</option>
+<option value="174">ساموا</option>
+<option value="191">سانت لوسيان</option>
+<option value="190">سانت هيلينيان</option>
+<option value="175">ساو توميان</option>
+<option value="189">سري لانكا</option>
+<option value="173">سلفادوري</option>
+<option value="180">سنغافوري</option>
+<option value="177">سنغالي</option>
+<option value="195">سوازي</option>
+<option value="193">سوداني</option>
+<option value="198">سوري</option>
+<option value="194">سورينام</option>
+<option value="197">سويسري</option>
+<option value="179">سيراليوني</option>
+<option value="58">سيمرايس</option>
+<option value="59">سيمرو</option>
+<option value="154">شمالية إيرلندية</option>
+<option value="184">صومالي</option>
+<option value="42">صينى</option>
+<option value="200">طاجيك</option>
+<option value="192">عديم الجنسية</option>
+<option value="101">عراقي</option>
+<option value="156">عماني</option>
+<option value="81">غامبيا</option>
+<option value="88">غرينادا</option>
+<option value="90">غواتيمالا</option>
+<option value="89">غواماني</option>
+<option value="91">غينيا</option>
+<option value="71">غينيا الاستوائية</option>
+<option value="75">فارويز</option>
+<option value="79">فرنسي</option>
+<option value="159">فلسطيني</option>
+<option value="217">فنزويلية</option>
+<option value="219">فنسنتيان</option>
+<option value="218">فيتنامي</option>
+<option value="169">قطري</option>
+<option value="114">قيرغيزستان</option>
+<option value="35">كاميروني</option>
+<option value="34">كمبودي</option>
+<option value="36">كندي</option>
+<option value="153">كوري شمالي</option>
+<option value="186">كوريا الجنوبية</option>
+<option value="55">كوستاريكا</option>
+<option value="112">كوسوفو</option>
+<option value="54">كوك ايلاندر</option>
+<option value="113">كويتي</option>
+<option value="111">كيتيتيان</option>
+<option value="110">كيني</option>
+<option value="116">لاتفيا</option>
+<option value="115">لاو</option>
+<option value="117">لبناني</option>
+<option value="122">لوكسمبورجر</option>
+<option value="119">ليبي</option>
+<option value="118">ليبيري</option>
+<option value="132">مارتينيكيس</option>
+<option value="131">مارشال</option>
+<option value="123">ماكاوي</option>
+<option value="129">مالي</option>
+<option value="127">ماليزي</option>
+<option value="125">مدغشقر</option>
+<option value="68">مصري</option>
+<option value="142">مغربي</option>
+<option value="135">مكسيكي</option>
+<option value="126">ملاوي</option>
+<option value="164">من سكان جزيرة بيتكيرن</option>
+<option value="43">مواطن أنتيغوا وبربودا</option>
+<option value="44">مواطن البوسنة والهرسك</option>
+<option value="216">مواطن الفاتيكان</option>
+<option value="48">مواطن جمهورية الدومينيكان</option>
+<option value="47">مواطن سيشيل</option>
+<option value="45">مواطن غينيا بيساو</option>
+<option value="49">مواطن فانواتو</option>
+<option value="46">مواطن كيريباتي</option>
+<option value="120">مواطن ليختنشتاين</option>
+<option value="133">موريتاني</option>
+<option value="134">موريشيوس</option>
+<option value="144">موزمبيقى</option>
+<option value="143">موسوثو</option>
+<option value="137">مولدوفا</option>
+<option value="138">موناكو</option>
+<option value="141">مونتسيراتيان</option>
+<option value="136">ميكرونيزي</option>
+<option value="146">ناورو</option>
+<option value="147">نيبالي</option>
+<option value="150">نيجيري</option>
+<option value="149">نيكاراغوا</option>
+<option value="148">نيوزيلندي</option>
+<option value="152">نيوي</option>
+<option value="94">هندوراس</option>
+<option value="98">هندي</option>
+<option value="65">هولندي</option>
+<option value="95">هونج كونج</option>
+<option value="221">ويلزي</option>
+<option value="222">يمني</option>
+</select>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="CountryId">الدولة</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="CountryId" data-valmsg-replace="false">*</span>
+<select autocomplete="off" class="form-control" data-val="true" data-val-required="*" id="CountryId" inert="" name="CountryId"><option value="1">السعودية</option>
+<option value="6">البحرين</option>
+<option value="2">قطر</option>
+<option value="3">الامارات العربية المتحدة</option>
+<option value="4">الكويت</option>
+<option value="5">عمان</option>
+<option value="10">الاردن</option>
+<option value="18">الجزائر</option>
+<option value="15">السودان</option>
+<option value="14">العراق</option>
+<option value="19">المغرب</option>
+<option value="7">اليمن</option>
+<option value="17">تونس</option>
+<option value="11">سوريا</option>
+<option value="12">فلسطين</option>
+<option value="13">لبنان</option>
+<option value="16">ليبيا</option>
+<option value="8">مصر</option>
+<option value="20">موريتانيا</option>
+<option value="26"> اندونيسيا</option>
+<option value="32"> فيتنام</option>
+<option value="63">إريتريا</option>
+<option value="42">اذربيجان</option>
+<option value="55">اسبانيا</option>
+<option value="44">استراليا</option>
+<option value="38">افغانستان</option>
+<option value="52">الارجنتين</option>
+<option value="51">البرازيل</option>
+<option value="56">السويد</option>
+<option value="21">الصومال</option>
+<option value="24">الصين</option>
+<option value="31">الفلبين</option>
+<option value="57">المانيا</option>
+<option value="53">المكسيك</option>
+<option value="49">المملكة المتحدة</option>
+<option value="25">الهند</option>
+<option value="48">الولايات المتحدة الامريكية</option>
+<option value="30">اليابان</option>
+<option value="62">اليونان</option>
+<option value="36">اوزبكستان</option>
+<option value="40">ايران</option>
+<option value="64">ايرلندا</option>
+<option value="60">ايطاليا</option>
+<option value="27">باكستان</option>
+<option value="69">بلجيكا</option>
+<option value="28">بنغلاديش</option>
+<option value="59">بولندا</option>
+<option value="34">تايلاند</option>
+<option value="41">تايوان</option>
+<option value="33">تركيا</option>
+<option value="23">جزر القمر</option>
+<option value="65">جورجيا</option>
+<option value="22">جيبوتي</option>
+<option value="66">دنمارك</option>
+<option value="29">روسيا</option>
+<option value="43">سنغافورة</option>
+<option value="68">سويسرا</option>
+<option value="46">طاجيكستان</option>
+<option value="54">فرنسا</option>
+<option value="58">فنلندا</option>
+<option value="47">قيرغيزستان</option>
+<option value="50">كندا</option>
+<option value="35">كوريا الجنوبية</option>
+<option value="39">كوريا الشمالية</option>
+<option value="37">ماليزيا</option>
+<option value="61">نيوزيلاندا</option>
+<option value="67">هولندا</option>
+<option value="45">هونج كونج</option>
+<option value="9">اخرى</option>
+</select>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group mb-4">
+<label for="CityId">المدينة</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="CityId" data-valmsg-replace="false">*</span>
+<select autocomplete="off" class="form-control" data-val="true" data-val-required="*" id="CityId" inert="" name="CityId"><optgroup label="السعودية">
+<option value="1">الرياض</option>
+<option value="2">جدة</option>
+<option value="3">الدمام</option>
+<option value="9">الطائف‎</option>
+<option value="17">المدينة المنورة</option>
+<option value="31">المدينة المنورة</option>
+<option value="16">مكة المكرمة</option>
+<option value="11">أبها</option>
+<option value="4">الخبر</option>
+<option value="5">الظهران</option>
+<option value="32">عنيزة</option>
+<option value="6">الاحساء</option>
+<option value="7">القطيف‎</option>
+<option value="12">الباحة</option>
+<option value="8">الجبيل‎</option>
+<option value="19">الجوف</option>
+<option value="18">القصيم‎</option>
+<option value="23">المجمعة</option>
+<option value="33">الهفوف</option>
+<option value="21">بريدة</option>
+<option value="10">تبوك‎</option>
+<option value="13">جازان‎</option>
+<option value="15">حائل‎</option>
+<option value="22">حفر الباطن‎</option>
+<option value="27">سكاكا</option>
+<option value="14">نجران‎</option>
+<option value="24">نيوم</option>
+<option value="30">وادي الدواسر</option>
+<option value="20">ينبع</option>
+<option value="37">الخرج </option>
+<option value="36">املج</option>
+<option value="25">الدرعية ، الرياض</option>
+<option value="0">أخرى</option>
+</optgroup>
+<optgroup label="قطر">
+<option value="34">الدوحة</option>
+<option value="100">أم صلال</option>
+<option value="96">أم قرن</option>
+<option value="98">الجميلية</option>
+<option value="95">الخور</option>
+<option value="35">الريان</option>
+<option value="93">الشحانية</option>
+<option value="101">الشمال</option>
+<option value="99">الظعاين</option>
+<option value="92">اللقطة</option>
+<option value="94">الوكرة</option>
+<option value="97">نعيجة</option>
+</optgroup>
+<optgroup label="الامارات العربية المتحدة">
+<option value="62">أبو حليفة</option>
+<option value="49">أبو ظبي</option>
+<option value="55">أم القيوين</option>
+<option value="63">الأحمدي</option>
+<option value="59">الجزيرة الحمراء</option>
+<option value="50">الشارقة</option>
+<option value="51">العين</option>
+<option value="54">الفجيرة</option>
+<option value="57">خور فكان</option>
+<option value="48">دبي</option>
+<option value="53">رأس الخيمة</option>
+<option value="52">عجمان</option>
+<option value="56">كلباء</option>
+<option value="58">مدينة زايد</option>
+</optgroup>
+<optgroup label="عمان">
+<option value="79">إزكي</option>
+<option value="80">ابراء</option>
+<option value="76">البريمي</option>
+<option value="70">الرستاق</option>
+<option value="69">السويق</option>
+<option value="83">الطاكة</option>
+<option value="75">العامرات</option>
+<option value="77">القريات</option>
+<option value="86">المزيونة</option>
+<option value="71">المضيبي</option>
+<option value="72">بهلاء</option>
+<option value="66">بوشر</option>
+<option value="84">خصب</option>
+<option value="74">سمائل</option>
+<option value="78">شناص</option>
+<option value="90">صحار</option>
+<option value="67">صلالة</option>
+<option value="88">صور</option>
+<option value="82">ضنك</option>
+<option value="91">عبري</option>
+<option value="85">فنجاء</option>
+<option value="87">مرباط</option>
+<option value="65">مسقط</option>
+<option value="68">مطرح</option>
+<option value="81">نخل</option>
+<option value="73">نزوى</option>
+<option value="89">هيما</option>
+</optgroup>
+<optgroup label="البحرين">
+<option value="45">أضيرز</option>
+<option value="46">المالكية</option>
+<option value="39">المحرق</option>
+<option value="38">المنامة</option>
+<option value="44">الهملة</option>
+<option value="41">جد حفض</option>
+<option value="43">سترة</option>
+<option value="47">كرانة</option>
+<option value="40">مدينة حمد</option>
+<option value="42">مدينة عيسى</option>
+</optgroup>
+<optgroup label="الكويت">
+<option value="64">الرقة</option>
+<option value="61">مدينة الجهراء</option>
+<option value="60">مدينة الكويت</option>
+</optgroup>
+</select>
+</div>
+</div>
+<div class="col-md-6 d-none">
+<div class="form-group mb-4">
+<label for="TeamId">فريقك المفضل</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="TeamId" data-valmsg-replace="true"></span>
+<select autocomplete="off" class="form-control" data-val="true" data-val-required="*" id="TeamId" inert="" name="TeamId"><option value="0">اخرى</option>
+<option value="8"> الهلال</option>
+<option value="9">الاتحاد</option>
+<option value="104">الرياض</option>
+<option value="10">النصر</option>
+<option value="13"> الشباب</option>
+<option value="3">نادي الاتفاق</option>
+<option value="14">نادي التعاون</option>
+<option value="12"> الرائد</option>
+<option value="83">نادي العدالة</option>
+<option value="39">نادي ابها</option>
+<option value="138"> ماليزيا</option>
+<option value="172">D.CUnited</option>
+<option value="157">أستراليا</option>
+<option value="185">ألبانيا</option>
+<option value="161">أوزبكستان</option>
+<option value="142">اتحاد العاصمة الجزائري</option>
+<option value="136">اجمك الاوزبكي </option>
+<option value="151">افغانستان</option>
+<option value="1">الأهلي</option>
+<option value="141">الأهلي المصري</option>
+<option value="146">الاتحاد الحلبي</option>
+<option value="154">الاخدود</option>
+<option value="159">الصين </option>
+<option value="145">العهد</option>
+<option value="5">الفتح</option>
+<option value="144">الفتوة</option>
+<option value="11">القادسية</option>
+<option value="115">القوة الجوية العراقي</option>
+<option value="147">الكهرباء</option>
+<option value="150">الكويت</option>
+<option value="158">الهند</option>
+<option value="163">اليابان </option>
+<option value="168">اندنوسيا</option>
+<option value="166">ايران</option>
+<option value="140">باكستان</option>
+<option value="180">برمودا</option>
+<option value="181">بروناي دار السلام</option>
+<option value="139">بوتان</option>
+<option value="170">تايلند</option>
+<option value="173">جدة</option>
+<option value="174">جزر الرأس الأخضر</option>
+<option value="152">سباهان الإيراني</option>
+<option value="162">سوريا</option>
+<option value="160">طاجيكستان</option>
+<option value="175">غويانا</option>
+<option value="176">غينيا</option>
+<option value="178">غينيا الاستوائية </option>
+<option value="177">فانواتو</option>
+<option value="164">فيتنام</option>
+<option value="155">قطر</option>
+<option value="167">قيرغيزستان</option>
+<option value="135">كمبوديا</option>
+<option value="179">كمبوديا</option>
+<option value="169">كوريا</option>
+<option value="137">لاوس</option>
+<option value="156">لبنان</option>
+<option value="134">منغوليا</option>
+<option value="149">مومباي سيتي</option>
+<option value="16">نادى احد</option>
+<option value="129">نادي الأخدود </option>
+<option value="2">نادي الباطن</option>
+<option value="7">نادي الحزم</option>
+<option value="182">نادي الدرعية</option>
+<option value="183">نادي الزلفي</option>
+<option value="38">نادي الطائي </option>
+<option value="6">نادي الفيحاء</option>
+<option value="4">نادي الفيصلي‎</option>
+<option value="171">نادي الهلال السوداني</option>
+<option value="15">نادي الوحدة</option>
+<option value="37">نادي ضمك</option>
+<option value="153">نادي نساجي مازاندران الإيراني</option>
+<option value="143">نوبهار الاوزبكي </option>
+<option value="184">نيبال</option>
+<option value="165">هونغ كونغ</option>
+<option value="82">نادي الخليج</option>
+<option value="24">نادى العدالة</option>
+</select>
+</div>
+</div>
+<div class="col-12">
+<div class="form-group">
+<div class="custom-control custom-checkbox">
+<input autocomplete="off" class="custom-control-input" id="AgreeOnTermsAndConditions" inert="" name="AgreeOnTermsAndConditions" type="checkbox" value="true"/>
+<label class="custom-control-label" for="AgreeOnTermsAndConditions">
+                                                    قرأت واوافق على  <a href="/bujairi/ar/terms/index.html">الشروط والأحكام</a>
+</label>
+<span class="text-danger field-validation-valid" data-valmsg-for="AgreeOnTermsAndConditions" data-valmsg-replace="true"></span>
+<input autocomplete="off" id="g-recaptcha-response" inert="" type="hidden"/>
+</div>
+</div>
+</div>
+<div class="col-12">
+<input autocomplete="off" class="gtmBtn btn btn-lg btn-block btn-primary" data-event="register_success" data-event-action="Create a Account" data-event-category="Register" inert="" title="Success" type="submit" value="تسجيل مستخدم"/>
+</div>
+<div class="col-12">
+<hr/>
+</div>
+<div class="col-12">
+<div class="mb-3 text-center">
+                                            لديك حساب بالفعل ؟ |
+                                            <a class="gtmLink text-dark" data-event="sign_in_now" data-event-action="Sign In" data-event-category="Register" href="/bujairi/ar/Account/Login/index.html" title="Sign In Now"> تسجيل دخول</a>
+</div>
+</div>
+</div>
+<input autocomplete="off" inert="" type="hidden"/></form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div>
+<!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

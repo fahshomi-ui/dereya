@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'NeoSansArabic';
+  src: url('NeoSansArabic.eot#iefix') format('embedded-opentype'),  url('NeoSansArabic.woff') format('woff'), url('NeoSansArabic.ttf')  format('truetype'), url('NeoSansArabic.svg#NeoSansArabic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeoSansArabic';
+  src: url('NeoSansArabic-Medium.eot#iefix') format('embedded-opentype'),  url('NeoSansArabic-Medium.woff') format('woff'), url('NeoSansArabic-Medium.ttf')  format('truetype'), url('NeoSansArabic-Medium.svg#NeoSansArabic-Medium') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NeoSansArabic';
+  src: url('NeoSansArabic-Bold.eot#iefix') format('embedded-opentype'),  url('NeoSansArabic-Bold.woff') format('woff'), url('NeoSansArabic-Bold.ttf')  format('truetype'), url('NeoSansArabic-Bold.svg#NeoSansArabic-Bold') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NeoSansArabic';
+  src: url('NeoSansArabic-Light.eot#iefix') format('embedded-opentype'),  url('NeoSansArabic-Light.woff') format('woff'), url('NeoSansArabic-Light.ttf')  format('truetype'), url('NeoSansArabic-Light.svg#NeoSansArabic-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}

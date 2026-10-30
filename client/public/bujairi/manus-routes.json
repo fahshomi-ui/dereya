@@ -1,0 +1,224 @@
+{
+  "routes": [
+    {
+      "path": "/bujairi/index.html",
+      "title": "مطاعم البجيري وبطاقة الدخول - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/index.html",
+      "title": "مطاعم البجيري وبطاقة الدخول - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/index.html",
+      "title": "Bujairi Terrace booking options - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Account/ForgotPassword/index.html",
+      "title": "نسيت كلمة المرور - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Account/Login/index.html",
+      "title": "تسجيل الدخول - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Account/Register/index.html",
+      "title": "مستخدم جديد - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/ContactUs/index.html",
+      "title": "إتصل بنا - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/1/brunch-and-cake/index.html",
+      "title": "برنش آند كيك - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/10/angelina/index.html",
+      "title": "انجلينا - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/11/sum-things/index.html",
+      "title": "سَـم +ثينغز - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/12/flamingo-room/index.html",
+      "title": "فلامينغو روم - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/16/takya/index.html",
+      "title": "تكية - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/17/altopiano/index.html",
+      "title": "ألتوبيانو - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/19/african-lounge/index.html",
+      "title": "أفريكان لاونج - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/20/maison-assouline/index.html",
+      "title": "ميزون أسولين - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/21/dolce-and-gabbana-caffe/index.html",
+      "title": "دولتشي اند غابانا كافيه - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/22/liza/index.html",
+      "title": "ليزا - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/3/cova-pasticceria/index.html",
+      "title": "كوفا للحلويات - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/5/long-chim/index.html",
+      "title": "لونق تشيم - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/6/maiz/index.html",
+      "title": "ميز - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/7/sarabeths/index.html",
+      "title": "سارابيث - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/8/somewhere/index.html",
+      "title": "سموير - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/b/9/villa-mamas/index.html",
+      "title": "فيلا ماماز - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Restaurants/g/17/bujairi/index.html",
+      "title": "المطاعم - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/b/3552/diriyah-access/index.html",
+      "title": "تصريح دخول الدرعية - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/d/3552/diriyah-access/index.html",
+      "title": "تصريح دخول الدرعية - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/g/17/bujairi/index.html",
+      "title": "مطاعم البجيري وبطاقة الدخول - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/terms/index.html",
+      "title": "الشروط والأحكام - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Account/ForgotPassword/index.html",
+      "title": "Forget password - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Account/Login/index.html",
+      "title": "Sign In - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Account/Register/index.html",
+      "title": "Register - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/ContactUs/index.html",
+      "title": "Contact Us - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/1/brunch-and-cake/index.html",
+      "title": "Brunch and Cake - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/10/angelina/index.html",
+      "title": "Angelina - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/11/sum-things/index.html",
+      "title": "Sum + Things - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/12/flamingo-room/index.html",
+      "title": "Flamingo Room - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/16/takya/index.html",
+      "title": "Takya - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/17/altopiano/index.html",
+      "title": "Altopiano - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/19/african-lounge/index.html",
+      "title": "African Lounge - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/20/maison-assouline/index.html",
+      "title": "MAISON ASSOULINE - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/21/dolce-and-gabbana-caffe/index.html",
+      "title": "Dolce and Gabbana Caffe - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/22/liza/index.html",
+      "title": "LIZA - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/3/cova-pasticceria/index.html",
+      "title": "Cova Pasticceria - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/5/long-chim/index.html",
+      "title": "Long Chim - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/6/maiz/index.html",
+      "title": "Maiz - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/7/sarabeths/index.html",
+      "title": "Sarabeth's - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/8/somewhere/index.html",
+      "title": "Somewhere - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/b/9/villa-mamas/index.html",
+      "title": "Villa Mamas - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Restaurants/g/17/bujairi/index.html",
+      "title": "Restaurants - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/b/3552/diriyah-access/index.html",
+      "title": "Diriyah Access - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/d/3552/diriyah-access/index.html",
+      "title": "Diriyah Access - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/g/17/bujairi/index.html",
+      "title": "Bujairi Terrace booking options - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/terms/index.html",
+      "title": "Terms & Conditions - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/ar/Wallet/Cart/index.html",
+      "title": "إتمام شراء - Bujairi Terrace restaurants and access pass"
+    },
+    {
+      "path": "/bujairi/en/Wallet/Cart/index.html",
+      "title": "Checkout - Bujairi Terrace restaurants and access pass"
+    }
+  ]
+}

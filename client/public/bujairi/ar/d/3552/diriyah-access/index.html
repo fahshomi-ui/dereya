@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تصريح دخول الدرعية - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="تصريح دخول الدرعية - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-c7177563c1237241.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/d/3552/diriyah-access/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/d/3552/diriyah-access/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<input id="hiddenLang" type="hidden" value="ar"/>
+<!-- banner -->
+<div class="event-details">
+<div class="event-header">
+<div class="container-wide py-5">
+<div class="event-image">
+<picture>
+<source alt="تصريح دخول الدرعية" class="img-fluid w-100" media="(max-width: 767px)" srcset="/bujairi/optimized/d7097b6161dba36db8645ced956467b691b53ae5__765b259fe742-f0450090e2f490c9.webp"/>
+<img alt="تصريح دخول الدرعية" class="img-fluid w-100" srcset="/bujairi/optimized/cf21b699deb9ee2655400ffb8f8e4dbcd9ae72ac__90e233aaa358-1486926fac68a5a3.webp"/>
+</picture>
+</div>
+</div>
+</div>
+<div class="container-wide pb-5 bg-mx">
+<div class="grid-wrapper pt-5 row">
+<div class="col-md-4 grid-sizer"></div>
+<div class="col-md-8 grid-item mb-4">
+<div class="data-container p-3">
+<div class="event-title d-flex">
+<div class="d-flex flex-grow-1 align-items-center">تصريح دخول الدرعية</div>
+<div class="details-share share-icon d-flex align-items-center ml-lg-4">
+<a href="#" id="share-website" title="Share this page">
+<i class="fa fa-share-alt"></i>
+</a>
+</div>
+</div>
+<hr/>
+<div class="content">
+<div class="row">
+<div class="col-md-8">
+<div class="match-brief">
+<div class="mb-3">
+<span class="font-weight-bold text-nowrap">
+<i aria-hidden="true" class="fa fa-fw fa-clock-o"></i>
+                                                        الوقت
+                                                    </span>
+<span class="font-weight-bold text-nowrap">:</span>
+<div class="font-weight-normal event-details-time d-inline-block align-top">
+<p><br/><strong>مطل البجيري</strong></p><p>أيام الأسبوع:<br/>من الساعة 9:00 صباحاً حتى 12:00 منتصف الليل<br/><br/>نهاية الأسبوع:<br/>من الساعة 9:00 صباحاً حتى 1:00 صباحاً<br/><br/></p><p><strong>الطريف</strong></p><p>من السبت إلى الخميس:<br/>من الساعة 10:00 صباحاً حتى 12:00 منتصف الليل<br/><br/>يوم الجمعة:<br/>من الساعة 2:00 مساء حتى الساعة 12:00 منتصف الليل<br/><br/>آخر وقت للدخول الساعة 11 مساء</p> </div>
+</div>
+<div class="mb-3 city-name">
+<span class="font-weight-bold text-nowrap">
+<i aria-hidden="true" class="fa fa-fw fa-map"></i>
+                                                المدينة
+                                            </span>
+<span class="font-weight-bold">:</span>
+<span class="font-weight-normal">
+                                                الدرعية ، الرياض
+                                            </span>
+</div>
+<div class="mb-3">
+<span class="font-weight-bold text-nowrap">
+<i aria-hidden="true" class="fa fa-fw fa-map-marker"></i>
+                                                المكان
+                                            </span>
+<span class="font-weight-bold">:</span>
+<span class="font-weight-normal">
+                                                مطل البجيري وحي الطريف التاريخي
+                                            </span>
+</div>
+<div class="mb-3">
+<span class="font-weight-bold pr-3 text-nowrap" style="padding-left: 0 !important">
+<i aria-hidden="true" class="fa fa-fw fa-info-circle"></i>الوصف
+                                            </span>
+<span class="font-weight-bold">:</span>
+<span class="font-weight-normal d-block brief pt-3">
+<p><strong>يشمل :</strong></p><ul><li>الدخول لحي الطريف التاريخي.</li><li>الدخول لمطل البجيري.</li><li>يمكنك استرداد بمبلغ تذكرة الدخول في جميع مطاعم ومقاهي مطل البجيري ما عدا دولتشي اند غابانا</li></ul>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="event-btn main-btn-action col-md-4 grid-item">
+<div class="mobile-fixed">
+<a class="gtmLink btn btn-lg btn-primary btn-block font-weight-light px-5 py-4" data-event="book_now" data-event-action="Book Now" data-event-category="Event Details" data-event_category="" data-event_city="Diriyah, Riyadh, Saudi Arabia" data-event_zone="" href="/bujairi/ar/b/3552/diriyah-access/index.html" title="Diriyah Access">
+                                احجز الآن
+                            </a>
+</div>
+</div>
+<div class="prices col-md-4 mb-4 grid-item">
+<div class="data-container p-3">
+<h4>الموقع</h4>
+<hr/>
+<div class="google-maps">
+<p><iframe allowfullscreen="" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.708383732955!2d46.574309199999995!3d24.7368899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe6a9b7f454b6510f!2sBujairi%20Terrace!5e0!3m2!1sen!2ssa!4v1662991281447!5m2!1sen!2ssa" style="border:0;" width="600"></iframe></p>
+</div>
+</div>
+</div>
+<div class="mb-4 col-md-8 grid-item">
+<div class="data-container p-3" id="accordionTerms">
+<a aria-controls="collapseOneTerms" aria-expanded="false" class="collapsed" data-target="#collapseOneTerms" data-toggle="collapse" id="headingOneTerms" style="cursor:pointer">
+<h4>
+                                    الشروط والأحكام
+                                    <i class="fa fa-chevron-down" id="termsArrow"></i>
+</h4>
+</a>
+<div aria-labelledby="headingOneTerms" class="text collapse" data-parent="#accordionTerms" id="collapseOneTerms">
+<hr/>
+<p dir="RTL"><strong>تعليمات الدخول</strong></p><ul><li>يجب على جميع زوار المنطقة الالتزام بالقواعد واتباع تعليمات المشغل</li><li>يجب أن يكون الأطفال الذين تبلغ أعمارهم 15 عامًا أو أقل برفقة شخص بالغ مسؤول. يمكن للأطفال الذين تبلغ أعمارهم <span dir="LTR">12</span> سنوات أو أقل دخول المنطقة مجانًا</li><li>قد تكون هناك حاجة لبطاقة الهوية الوطنية</li><li>لا يُسمح بإحضار الطعام والشراب إلى المنطقة (إلا في ظروف معينة ، بما في ذلك للأغراض الطبية والمكملات الغذائية المُشار إليها طبياً وأغذية الأطفال / حليب الأطفال)</li><li>يمكن لجميع حاملي التذاكر طلب تغيير التاريخ حتى 24 ساعة قبل تاريخ الوصول بالاتصال على<strong> 727 0021 92 966+</strong></li><li>يمكن شراء التذاكر من خلال الموقع الخاص بالمشغل أو من خلال موقع طرف ثالث مرخص له فقط. التذاكر التي تم شراؤها عن طريق الاحتيال، أو من طرف ثالث غير مصرح له غير صالحة ، ولا يقبل المشغل أي مسؤولية عن التذاكر المشتراة من خلال أطراف ثالثة غير مصرح لها</li><li>جميع التذاكر تسمح بالدخول مرة واحدة إلى المنطقة وصالحة للتاريخ المحدد فقط</li><li>دخول واستخدام المنطقة تقع على عاتق الزائر وحده، وإلى أقصى حد يسمح به القانون، لا يتحمل المشغل أي مسؤولية عن الخسارة أو الإصابة أو الضرر الذي يحدث في المنطقة</li><li>قد يخضع جميع حاملي التذاكر وممتلكاتهم للتفتيش عند دخول المكان. سيتم مصادرة المواد الممنوعة والخطيرة</li><li>يحتفظ المشغل بالحق في رفض الدخول أو إزالة الزوار من المنطقة لأي سبب من الأسباب</li><li><span dir="RTL">شراء التذكرة لا يضمن توافر طاولات في مطاعم المنطقة. يجب إجراء حجز مطعم فردي لتأمين الحجز المفضل</span></li></ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal" id="share-modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">مشاركة على</h5>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body d-flex justify-content-center">
+<a class="mx-2" href="#" id="share-facebook" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-twitter" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-linkedin" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-whatsapp" title="Share on WhatsApp"><i aria-hidden="true" class="fa fa-whatsapp fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-email" title="Share via Email"><i aria-hidden="true" class="fa fa-envelope fa-2x"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed-to-bottom footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div>
+<!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

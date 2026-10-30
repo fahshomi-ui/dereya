@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>فلامينغو روم - Bujairi Terrace restaurants and access pass</title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="مطاعم البجيري وبطاقة الدخول - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<meta content="cuhhfl3ulzg17vxxx7bq1tpveq8mz4" name="facebook-domain-verification"/>
+<style>
+</style>
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-7eba2b725b649c44.js"></script></head>
+<body data-restaurant-page="ar"><div class="" id="wrap"><nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/Restaurants/b/12/flamingo-room/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/Restaurants/b/12/flamingo-room/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav><div class="event-details restaurant__details">
+<div class="event-header bg-transparent">
+<div class="container-wide p-0">
+<div class="event-image restaurant__image">
+<picture>
+<source alt="فلامينغو روم" class="img-fluid w-100" media="(max-width: 767px)" srcset="/bujairi/optimized/6d48728583b18cb8fcd457a955d4de5ecef627e4__90e233aaa358-fc9e64ba3309297a.webp"/>
+<img alt="فلامينغو روم" class="img-fluid w-100" srcset="/bujairi/optimized/6d48728583b18cb8fcd457a955d4de5ecef627e4__90e233aaa358-fc9e64ba3309297a.webp"/>
+</picture>
+<div class="container-wide d-flex align-items-end">
+<div class="restaurant__logo">
+<img alt="فلامينغو روم" decoding="async" height="750" src="/bujairi/assets/s3.ticketmx.com/uploads/images/4e6f28ff2f9e5b6ec454f69466108ee0d11cca0f__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-lg-none d-block">
+<div class="type__title">
+<div class="title"><h5>فلامينغو روم</h5></div>
+<div class="type">أوروبي</div>
+</div>
+</div>
+</div>
+<div class="container-wide mt-4 d-lg-none d-block">
+<div class="desc">
+<p> من عمق جمال أفريقيا؛ يقدم مطعم فلامينغو روم تجربة راقية للمشروبات ووجبات الغداء والعشاء.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container-wide pb-md-5 pb-2 bg-mx">
+<div class="grid-wrapper pt-lg-5 pb-2 row">
+<div class="restaurant-main-column"><div class="col-lg-8 d-lg-block d-none grid-item mb-md-4 mb-2" style=";--restaurant-order:0">
+<div class="data-container p-3">
+<div class="event-title d-flex">
+<div class="d-flex flex-grow-1 align-items-center justify-content-between flex-wrap">
+<div class="title">فلامينغو روم</div>
+<div class="type">أوروبي</div>
+</div>
+</div>
+<hr/>
+<div class="content">
+<div class="row">
+<div class="col-12">
+<div class="match-brief">
+<div class="mb-md-3 mb-2">
+<span class="font-weight-bold"></span>
+<div class="font-weight-normal d-block brief pl-0 pt-3">
+<p>
+</p><p> من عمق جمال أفريقيا؛ يقدم مطعم فلامينغو روم تجربة راقية للمشروبات ووجبات الغداء والعشاء.</p>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="catLitst col-lg-8 mb-md-4 mb-2 grid-item" style=";--restaurant-order:2">
+<div class="card cart">
+<div class="card-body">
+<h5 class="mb-0 text-lg-left text-center">
+<span>
+                                الحجز
+                            </span>
+</h5>
+<hr class=""/>
+<div class="reservation-message">
+<p>الحجز يشمل</p><ul><li>الدخول لمنطقة مطل البجيري التي تعدّ أفضل وجهة تضم عدد من أرقى المطاعم العالمية والمحلية.  </li><li>إمكانية الدخول لحي الطريف التاريخي، مع خيار حجز جولة بصحبة مرشد سياحي للتعرف على المنطقة.</li><li>استرداد قيمة رسوم الحجز من مبلغ الفاتورة.</li></ul>
+</div>
+<div class="card-body px-0">
+<div class="d-flex cart-row mx-0 px-2 py-0 flex-column catList">
+<div class="row">
+<div class="col-lg-6 px-2">
+<div class="guest__num d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-between">
+<div class="text-nowrap order-lg-0 order-1 p-2 num__total">
+<div class="number_ticket d-flex align-items-center">
+<span class="catincRestaurant button input-number-increment"></span>
+<input class="catRestaurantQty input-number" data-id="12" data-language="ar" id="txtQty12" max="10" min="2" readonly="" type="number" value="2"/>
+<span class="catdecRestaurant button input-number-decrement"></span>
+</div>
+<div class="mx-2 d-lg-none d-block pl-0 text-nowrap">
+<span class="cartRestaurantTotal">0</span> ريال
+                                                    </div>
+</div>
+<div class="event-name order-lg-1 order-0 pr-2">
+                                                    عدد الضيوف (2 <label> - <span id="lblQty12">10</span>)</label>
+</div>
+</div>
+</div>
+<div class="col-lg-6 px-2 mt-md-0 mt-2">
+<label class="mb-2 d-lg-none d-block date" for="dateSelectorRestaurant">اختار التاريخ</label>
+<select class="form-control select__date" data-restaurantid="12" id="dateSelectorRestaurant" name="">
+<option selected="selected" value="2026-10-30">الجمعة, 30-أكتوبر-2026</option>
+<option value="2026-10-31">السبت, 31-أكتوبر-2026</option>
+<option value="2026-11-01">الأحد, 01-نوفمبر-2026</option>
+<option value="2026-11-02">الاثنين, 02-نوفمبر-2026</option>
+<option value="2026-11-03">الثلاثاء, 03-نوفمبر-2026</option>
+<option value="2026-11-04">الأربعاء, 04-نوفمبر-2026</option>
+<option value="2026-11-05">الخميس, 05-نوفمبر-2026</option>
+<option value="2026-11-06">الجمعة, 06-نوفمبر-2026</option>
+<option value="2026-11-07">السبت, 07-نوفمبر-2026</option>
+<option value="2026-11-08">الأحد, 08-نوفمبر-2026</option>
+</select>
+</div>
+</div>
+</div>
+<div class="dates-times bg-white shadow-lg">
+<label class="mb-2 d-lg-none d-block text-left" for="">اختار الوقت</label>
+<div class="bg-white" id="divAvailabilities" style="min-height:60px"><div class="times-row mt-md-0 mt-2" data-local-clock-options="true"><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0000" href="#" style="">12:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0015" href="#" style="">12:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0030" href="#" style="">12:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0045" href="#" style="">12:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0100" href="#" style="">01:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0115" href="#" style="">01:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0130" href="#" style="">01:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0145" href="#" style="">01:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0200" href="#" style="">02:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0215" href="#" style="">02:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0230" href="#" style="">02:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0245" href="#" style="">02:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0300" href="#" style="">03:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0315" href="#" style="">03:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0330" href="#" style="">03:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0345" href="#" style="">03:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0400" href="#" style="">04:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0415" href="#" style="">04:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0430" href="#" style="">04:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0445" href="#" style="">04:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0500" href="#" style="">05:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0515" href="#" style="">05:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0530" href="#" style="">05:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0545" href="#" style="">05:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0600" href="#" style="">06:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0615" href="#" style="">06:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0630" href="#" style="">06:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0645" href="#" style="">06:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0700" href="#" style="">07:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0715" href="#" style="">07:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0730" href="#" style="">07:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0745" href="#" style="">07:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0800" href="#" style="">08:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0815" href="#" style="">08:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0830" href="#" style="">08:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0845" href="#" style="">08:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0900" href="#" style="">09:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0915" href="#" style="">09:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0930" href="#" style="">09:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="0945" href="#" style="">09:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1000" href="#" style="">10:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1015" href="#" style="">10:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1030" href="#" style="">10:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1045" href="#" style="">10:45<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1100" href="#" style="">11:00<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1115" href="#" style="">11:15<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1130" href="#" style="">11:30<br/>ص</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1145" href="#" style="">11:45<br/>ص</a><a class="timeSelectorRestaurant time active" data-price="50.00" data-timeid="1200" href="#" style="">12:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1215" href="#" style="">12:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1230" href="#" style="">12:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1245" href="#" style="">12:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1300" href="#" style="">01:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1315" href="#" style="">01:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1330" href="#" style="">01:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1345" href="#" style="">01:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1400" href="#" style="">02:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1415" href="#" style="">02:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1430" href="#" style="">02:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1445" href="#" style="">02:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1500" href="#" style="">03:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1515" href="#" style="">03:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1530" href="#" style="">03:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1545" href="#" style="">03:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1600" href="#" style="">04:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1615" href="#" style="">04:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1630" href="#" style="">04:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1645" href="#" style="">04:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1700" href="#" style="">05:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1715" href="#" style="">05:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1730" href="#" style="">05:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1745" href="#" style="">05:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1800" href="#" style="">06:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1815" href="#" style="">06:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1830" href="#" style="">06:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1845" href="#" style="">06:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1900" href="#" style="">07:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1915" href="#" style="">07:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1930" href="#" style="">07:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="1945" href="#" style="">07:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2000" href="#" style="">08:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2015" href="#" style="">08:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2030" href="#" style="">08:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2045" href="#" style="">08:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2100" href="#" style="">09:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2115" href="#" style="">09:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2130" href="#" style="">09:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2145" href="#" style="">09:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2200" href="#" style="">10:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2215" href="#" style="">10:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2230" href="#" style="">10:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2245" href="#" style="">10:45<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2300" href="#" style="">11:00<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2315" href="#" style="">11:15<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2330" href="#" style="">11:30<br/>م</a><a class="timeSelectorRestaurant time" data-price="50.00" data-timeid="2345" href="#" style="">11:45<br/>م</a></div></div>
+</div>
+<div class="d-flex cart-row mx-0 p-lg-4 p-2 mt-lg-0 mt-2 cart__total">
+<div class="flex-grow-1 mx-2">
+<div class="event-name">الإجمالي</div>
+</div>
+<div class="mx-2 pl-0 text-nowrap">
+<span class="cartRestaurantTotal">0</span> ريال
+                                    </div>
+</div>
+</div>
+<a class="gtmLink btn btn-lg btn-primary btn-block d-lg-flex d-none font-weight-light px-4 py-4 btnRestaurantGoToCart" data-event="ticket_book_now" data-event-action="Book Now" data-event-category="Ticket Selection" data-language="ar" data-restaurant_category="Restaurant" data-restaurant_city="الدرعية ، الرياض" data-restaurant_zone="na" href="/bujairi/ar/Restaurants/b/12/flamingo-room/index.html" id="btnRestaurantGoToCart" title="فلامينغو روم">احجز الان</a>
+</div>
+</div>
+</div><div class="mt-3 mb-md-4 mb-2 col-lg-8 grid-item" style=";--restaurant-order:5">
+<div class="data-container p-lg-3 p-2">
+<h4 aria-controls="termsAndCoditions" aria-expanded="true" class="collapse__terms" data-toggle="collapse" href="#termsAndCoditions" role="button">
+                            الشروط والأحكام
+                        </h4>
+<div class="text collapse show" id="termsAndCoditions">
+<ul><li>يلتزم الضيف بالحجز، والوصول في الوقت المحدد<span dir="LTR">. </span></li><li>يلتزم الضيف بعدم الحجز المتكرر لعدة مطاعم في نفس الوقت. كما يُحظر إعادة بيع الحجوزات، حيث قد تضطر الإدارة لإلغاء الحجز في مثل هذه الحالات<span dir="LTR">. </span></li><li>يمكن إجراء الحجوزات من خلال الموقع الالكتروني الخاص بالمشغل<span dir="LTR">: <a href="/bujairi/ar/g/17/bujairi/index.html"></a><a href="/bujairi/ar/g/17/bujairi/index.html">http://tickets.bujairi.sa</a> </span></li><li>جميع الحجوزات تسمح بالدخول مرة واحدة إلى المنطقة وصالحة للتاريخ المحدد فقط<span dir="LTR">. </span></li><li>تخضع جميع الحجوزات لتوفر المطاعم للوقت والتاريخ ونوع الحفل المحدد، مع العلم أن تأكيد الحجز يتم بعد تلقي الضيف رسالة تأكيد بالبريد الإلكتروني<span dir="LTR">. </span></li><li>لا يمكن حجزالحفلات المجموعات التي يزيد عدد أفرادها عن 8 أشخاص إلا عن طريق الاتصال بالمطعم مباشرةً</li><li>تلتزم الدرعية بتقديم خدمات عالية الجودة للزوّار وللمرافق التابعة، لها وذلك حرصًا منها على الحفاظ على أعلى مستويات الخدمة والضيافة. ولذايتحتم على الزوّارإلغاء أو تعديل أي حجوزات قبل 24 ساعة على الأقل من يوم الحجز، يمكن إلغاء الحجز عن طريق الاتصال بخدمة العملاء<span dir="LTR">:</span><span dir="LTR">+966 92 0021 727 </span></li><li>يملك كل مطعم سياسته الخاصة فيما يتعلق بعدم الحضور بعد الحجز<span dir="LTR">. </span></li><li>يرجى مراجعة سياسة المطعم المحددة فيما يتعلق بالعمر المسموح لدخول المطاعم (إن وجدت). أو الاتصال بخدمة العملاء لمزيد من المعلومات<span dir="LTR">: </span><span dir="LTR">+966 92 0021 727 </span></li><li>جميع المبالغ التي تم دفعها للحجز غير مستردة، لن يكون هناك استرداد للمبلغ في حال عدم الحضور أو إلغاء الحجوزات بعد 24 ساعة من تاريخ الحجز<span dir="LTR">. </span></li><li>للمزيد من المعلومات الرجاء الاتصال بخدمة العملاء على الرقم<span dir="LTR">: </span><span dir="LTR">+966 92 0021 727 </span></li></ul>
+</div>
+</div>
+</div></div><div class="restaurant-side-column"><div class="prices d-lg-block d-none col-lg-4 mb-md-3 mb-2 grid-item restaurant-price" style=";--restaurant-order:1">
+<div class="data-container mb-md-4 mb-2 p-3 d-none d-md-block">
+<h4>الاسعار</h4>
+<hr/>
+<table class="table bg-transparent table-sm border-0 mb-0">
+<tbody><tr>
+<td class="border-0">الحد الأدنى</td>
+<td class="rtl border-0">
+<div class="the-price text-right custom-price">
+<p>50 ريال</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="data-container d-md-block d-none p-3">
+<div class="d-flex align-items-center justify-content-between">
+<h4>الموقع</h4>
+<a class="gtmLink text-link text-primary d-inline-block me-2" href="#restaurant-map" title="Flamingo Room ">
+                                    الذهاب للموقع
+                                </a>
+</div>
+<hr/>
+<div class="google-maps" id="restaurant-map">
+<p>
+</p><p><iframe allowfullscreen="" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.708383732955!2d46.574309199999995!3d24.7368899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe6a9b7f454b6510f!2sBujairi%20Terrace!5e0!3m2!1sen!2ssa!4v1662991281447!5m2!1sen!2ssa" style="border:0;" width="600"></iframe></p>
+<p></p>
+</div>
+</div>
+</div></div><div class="col-lg-4 grid-sizer"></div>
+<div class="event-btn main-btn-action col-lg-4 grid-item d-lg-none d-block" style="position: absolute; left: 0%; top: 588.438px;;--restaurant-order:3">
+<div class="mobile-fixed">
+<a class="gtmLink btn btn-lg btn-primary btn-block font-weight-light px-5 py-4 btnRestaurantGoToCart" data-event="ticket_book_now" data-event-action="Book Now" data-event-category="Ticket Selection" data-language="ar" data-restaurant_category="Restaurant" data-restaurant_city="الدرعية ، الرياض" data-restaurant_zone="na" href="/bujairi/ar/Restaurants/b/12/flamingo-room/index.html" id="btnRestaurantGoToCartM" title="فلامينغو روم">
+                        احجز الان
+                    </a>
+</div>
+</div>
+<div class="mt-2 col-12 grid-item mb-lg-4 mb-2 d-lg-none d-block" style=";--restaurant-order:4">
+<div class="data-container p-lg-3 p-2">
+<div class="d-flex align-items-center justify-content-between">
+<h4>الموقع</h4>
+<a class="gtmLink text-link text-primary d-inline-block me-2" href="#restaurant-map" title="Flamingo Room ">
+                                    الذهاب للموقع
+                                </a>
+</div>
+<div class="google-maps">
+<p>
+</p><p><iframe allowfullscreen="" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.708383732955!2d46.574309199999995!3d24.7368899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe6a9b7f454b6510f!2sBujairi%20Terrace!5e0!3m2!1sen!2ssa!4v1662991281447!5m2!1sen!2ssa" style="border:0;" width="600"></iframe></p>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div><script id="restaurant-public-data" type="application/json">{"language": "ar", "minimumCharge": 50.0, "minimumPriceFloor": 50.0}</script><input id="hiddemMinimumCharge" type="hidden" value="50.00"/><script data-restaurant-inline="true">(function () {
+  'use strict';
+  var element = document.getElementById('restaurant-public-data');
+  if (!element) return;
+  var data = JSON.parse(element.textContent);
+  function total() {
+    var input = document.querySelector('.catRestaurantQty');
+    var count = input ? Number(input.value) : 0;
+    var time = document.querySelector('.timeSelectorRestaurant.active');
+    var charge = Math.max(Number(data.minimumPriceFloor || 0),
+      time ? Number(time.getAttribute('data-price')) : Number(data.minimumCharge));
+    document.querySelectorAll('.cartRestaurantTotal').forEach(function (target) {
+      target.textContent = String(charge * count);
+    });
+  }
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('.catincRestaurant,.catdecRestaurant');
+    if (button) {
+      event.preventDefault();
+      var input = button.parentElement.querySelector('input.catRestaurantQty');
+      if (!input) return;
+      var change = button.classList.contains('catincRestaurant') ? 1 : -1;
+      var next = Number(input.value) + change;
+      if (next > Number(input.max) || next < Number(input.min)) {
+        if (change > 0 && window.alertify) window.alertify.alert(data.language === 'ar' ?
+          'لقد وصلت للحد الأقصى المسموح به لكل فرد' : 'You have reached the maximum limit for each user');
+        return;
+      }
+      button.classList.add('a' + next);
+      input.value = String(next);
+      total();
+      return;
+    }
+    var proceed = event.target.closest('.btnRestaurantGoToCart');
+    if (proceed) {
+      event.preventDefault();
+      var time = document.querySelector('.timeSelectorRestaurant.active');
+      if (!time) {
+        if (window.alertify) window.alertify.alert(data.language === 'ar' ? 'يرجي اختيار الوقت أولا' : 'Please choose time first');
+        return;
+      }
+      var guests = Array.from(document.querySelectorAll('.catList .catRestaurantQty')).reduce(function (sum, input) { return sum + Number(input.value); }, 0);
+      if (!Number.isInteger(guests) || guests <= 0) {
+        if (window.alertify) window.alertify.alert(data.language === 'ar' ? 'يرجي اختيار عدد الضيوف أولا' : 'Please choose number of guests first');
+        return;
+      }
+      var date = document.getElementById('dateSelectorRestaurant');
+      var parts = location.pathname.replace(/^\/bujairi\//,'/').replace(/\/index\.html$/,'').split('/').filter(Boolean);
+      var title = document.querySelector('.event-title .title') || document.querySelector('.event-title');
+      if (!date || !date.selectedOptions.length || parts.length !== 5) return;
+      var price = Math.max(Number(data.minimumPriceFloor || 0), Number(time.getAttribute('data-price')));
+      var now = Date.now();
+      var selection = {restaurantId: parts[3], slug: parts[4], language: data.language,
+        name: title ? title.textContent.trim() : proceed.title,
+        date: date.value, dateLabel: date.selectedOptions[0].textContent.trim(),
+        time: time.getAttribute('data-timeid'), timeLabel: time.innerText.replace(/\s+/g, ' ').trim(),
+        guests: guests, unitPrice: price, total: price * guests, createdAt: now, expiresAt: now + 600000};
+      try { sessionStorage.setItem('bujairi-restaurant-summary-v1', JSON.stringify(selection)); }
+      catch (_) { return; }
+      location.assign('/bujairi/'+data.language + '/Wallet/Cart/index.html');
+    }
+  });
+  var dates = document.getElementById('dateSelectorRestaurant');
+  if (dates) dates.addEventListener('change', total);
+  total();
+}());
+</script></body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="en">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terms &amp; Conditions - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" name="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="Terms &amp; Conditions - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-400.png" name="twitter:image"/>
+<meta content="TicketMX" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-en-7122e1482c621a5b.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-c6c0c47f90fb6c89.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/en/ContactUs/index.html">Contact us</a>
+<a class="navbar-brand" href="/bujairi/en/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/ar/terms/index.html">العربية</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/g/17/bujairi/index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/g/17/bujairi/index.html">Booking Options</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Restaurants/g/17/bujairi/index.html">Restaurants</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Account/Register/index.html">Create Account</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Account/Login/index.html">Sign In</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/en/ContactUs/index.html">Contact us</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/ar/terms/index.html">العربية</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<div class="user-pages bg-mx py-6">
+<div class="container-wide">
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+<div class="card">
+<div class="card-header bg-tertiary">
+<h4 class="text-center mb-0">Terms &amp; Conditions</h4>
+</div>
+<div class="card-body">
+<p><strong>TicketMx Terms and Conditions.</strong></p><p><strong>Overview</strong></p><p>By accessing or using TicketMx Services (“TicketMx”) - including but not limited to – “apps, websites, features” you acknowledge and agree to be bound by these terms and conditions in full.</p><p>TicketMx including all content on the website and App, logos, trademarks, and brands are owned by or licensed to Sela Company (“Sela”). </p><p><strong>1. Data Collection. </strong></p><ol><li><u>User Account</u>: This may include their name, email, phone number, login name and password, address, profile picture, payment, or banking information (including related payment verification information), and birthdate.</li><li><u>Location data</u>: We collect precise or approximate location data from a user’s mobile device if enabled by the user to do so. For drivers and delivery partners, TicketMx collects this data when the TicketMx app is running in the foreground (app open and on-screen) or background (app open but not on-screen) of their mobile device.</li><li><u>Transaction information</u>: We collect transaction information related to the use of our services, including the type of services requested or provided, order details, delivery information, date, and time the service was provided, the amount charged, and payment method. Additionally, if someone uses your promotion code, we may associate your name with that person.</li><li><u>Usage data</u>: We collect data about how users interact with our services. This includes data such as access dates and times, app features or pages viewed, app crashes and other system activity, type of browser, and third-party sites or services used before interacting with our services. In some cases, we collect this data through cookies, pixels, tags, and similar tracking technologies that create and maintain unique identifiers.</li><li><u>Device data</u>: We may collect data about the devices used to access our services, including the hardware models, device IP address, operating systems and versions, software, preferred languages, unique device identifiers, advertising identifiers, serial numbers, device motion data, and mobile network data.</li></ol><p><br/></p><p><strong>2. Cookies and Usage Data</strong></p><p>We do not currently use cookies, but if we do use them, it will be for the purpose of improving TicketMx experience. The browser usually places cookies on the user’s device in order to save some usage information from them, but users can refuse to store cookies or alert them when sending information through them. If this is enabled, some pages or features of the site may be affected.</p><p><br/></p><p><strong>3. User Registration and Account</strong></p><ol><li><u>Account Creation</u>: To use TicketMx Services, you must register for an account by providing your username, password, and certain personal details. You are responsible for ensuring the information provided is accurate and kept up to date.</li><li><u>Accuracy of Information</u>: You represent and warrant that any registration information provided is truthful and accurate. </li><li><u>Password Security</u>: You are responsible for maintaining confidentiality of your account login credentials and shall notify us immediately if you suspect any unauthorized access to your account. You will be responsible for all activities under your account.</li><li><u>Eligibility</u>: By using TicketMx, you warrant that you are above 18 years old and have the legal capacity to acknowledge and agree to these Terms and Conditions.</li><li>We may suspend your access to your account, or close it permanently, if we believe that your account has been used by someone else. We may also permanently close your account, if in our opinion you are abusing our Services. </li><li>We may, but have no obligation to, monitor and review new accounts before you sign in and start using the Services. </li><li>You must immediately notify us of any unauthorized uses of your account or any other breaches of security. We will not be liable for any acts or omissions by you, including any damages of any kind incurred as a result of such acts or omissions. </li></ol><p><br/></p><p><strong>4. Ticket Purchase and Booking</strong></p><ol><li><u>Process</u>: You can search for events and purchase tickets through TicketMx. Tickets are sold subject to availability.</li><li><u>Pricing and Payment</u>: All prices are in Saudi Riyals, the total price of your purchase will be set out on the checkout page, we accept payment by an authorized payment gateway.</li><li><u>Refunds</u>: Refund policies vary by event as set by the organizer. Non-refundable tickets will be clearly labeled on the ticket or the event terms. No refunds will be given for a change of mind once payment is made.</li><li><u>Delivery</u>: Most tickets are electronic and available on your account page for download. Others may be physically mailed and subject to additional costs. The delivery method will be clearly labeled on the ticket or the event terms.</li><li><u>Third Party Events</u>: Each ticket purchase is subject to the terms and conditions set by the event organizer which will be provided.</li></ol><p><br/></p><p><strong>5. Liability and Disclaimers</strong></p><ol><li><u>Technical Issues</u>: We cannot guarantee uninterrupted or secure access to TicketMx and accept no liability for technical disruptions, delays, or cancellations.</li><li><u>Changes</u>: We are not responsible for any losses arising from event changes outside of our control, such as due to government restrictions.</li><li><u>Damages</u>: To the fullest extent permitted by law, TicketMX will not be liable for any indirect, incidental, special, consequential, or punitive damages.</li></ol><p><br/></p><p><strong>6. How we use personal data</strong></p><p>TicketMx uses the collected data for various purposes – including but not limited to –:</p><ol><li>To provide and maintain the Service.</li><li>To notify you about changes to our Service</li><li>To allow you to participate in interactive features of our Service when you choose to do so.</li><li>To provide customer care and support.</li><li>To provide analysis or valuable information so that we can improve the Service.</li><li>To monitor the usage of the Service.</li><li>To detect, prevent and address technical issues.</li><li>For promotional and Marketing purposes.</li><li>Perform internal operations necessary to provide our services, including troubleshooting software bugs and operational problems; conduct data analysis, testing, and research; and monitor and analyze usage and activity trends.</li><li>Legal proceedings and requirements. We may use the personal data we collect to investigate or address claims or disputes relating to the use of TicketMx services, as otherwise allowed by applicable law, or as requested by regulators, government entities, and official inquiries.</li></ol><p><br/></p><p><strong>7. How we save information</strong></p><p>We use internationally approved safe methods to collect data, store and analyze it, in order to prevent access to it from unauthorized parties, as well as to prevent its amendment or destruction, or to disclose its methods of preservation. </p><p><br/></p><p><strong>8. Data sharing and disclosure</strong></p><p>By accessing or using TicketMx you agree to share your personal data other than as described in these Terms and Conditions without consent.</p><p><br/></p><p><strong>9. Intellectual property rights</strong></p><ol><li>TicketMx does not transfer to you any intellectual property owned by Sela or third parties, and all rights, titles, and interests in and to such property will remain (as between the parties) solely with Sela. </li><li>All trademarks, service marks, graphics and logos used in connection with the Services, are trademarks or registered trademarks of Sela or its licensors. </li><li>Other trademarks, service marks, graphics and logos used in connection With the Services may be the trademarks of other third parties. Your use of the Services grants you no right or license to reproduce or otherwise use any of Sela or third-party trademarks.</li></ol><p><br/></p><p><strong>10. Force Majeure</strong></p><p>Unforeseen Circumstances: TicketMX shall not be liable for any delay or failure resulting from causes outside its reasonable control.</p><p><br/></p><p><strong>11. Applicable Law &amp; Dispute Resolution</strong></p><ol><li>The construction, validity and performance of this Terms and Conditions will be governed by the Laws of the Kingdom of Saudi Arabia.</li><li>If the Parties were unable to resolve disputes amicably within Thirty (30) days after either Party’s written notification to the other Party, the Parties shall refer disputes to the competent court in Jeddah, Saudi Arabia.</li></ol><p><br/></p><p><strong>12. Changes and Amendments</strong></p><p>We reserve the right to modify these Terms and Conditions, at any time at our discretion.</p><p>An updated version of these Terms and Conditions will be effective immediately upon the posting of the revised Terms and Conditions unless otherwise specified. Your continued use of the Services after the effective date of the revised Terms and Conditions (or such other act specified at that time) will constitute your consent to those changes.</p><p><br/></p><p><strong>13. Language</strong></p><p>The English language shall be relied upon in interpreting and executing this Terms and Conditions and shall have authority in case of discrepancy.</p><p><br/></p><p><strong>14. Contact Information</strong></p><p>For any support inquiries or issues contact us at (support@ticketmx.com).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div> <!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>المطاعم - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="المطاعم - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<meta content="cuhhfl3ulzg17vxxx7bq1tpveq8mz4" name="facebook-domain-verification"/>
+<style>
+</style>
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-a062facd98693e2c.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/Restaurants/g/17/bujairi/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/Restaurants/g/17/bujairi/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<input id="hiddenLang" type="hidden" value="ar"/>
+<!-- banner -->
+<div class="header" dir="rtl">
+<div class="banner-slider banner-slider-before-init">
+<div class="slide">
+<picture>
+<source alt="الدرعية" class="img-fluid w-100" media="(min-width: 768px)" srcset="/bujairi/optimized/987e8ebff86625a6eb1880e853d69bc6684e07a0__90e233aaa358-04be698df418fc09.webp"/>
+<img alt="الدرعية" class="img-fluid w-100" decoding="async" fetchpriority="high" height="750" loading="eager" src="/bujairi/optimized/62aa24842d0c1e7c7218b627289faae8275881a6__765b259fe742-5be15fb3100faca7.webp" width="750"/>
+</picture>
+</div>
+</div>
+</div>
+<section class="section upcoming">
+<div class="container-wide">
+<div class="main-title d-flex mb-3">
+<h2 class="title flex-grow-1">مطاعم البجيري </h2>
+</div>
+<div class="row">
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="1" data-product-name="Brunch and Cake" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/1/brunch-and-cake/index.html">
+<div class="bg">
+<img alt="Brunch and Cake" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/dc3da05925e3b013dd31db803aee61002b84c3a5__90e233aaa358-8a981ee3566f7325.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/57bde77de2eab09de36472cb45af748ebd0f883a__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">برنش آند كيك</div>
+<div class="type">عالمي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="3" data-product-name="Cova Pasticceria" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/3/cova-pasticceria/index.html">
+<div class="bg">
+<img alt="Cova Pasticceria" class="img-fluid" decoding="async" height="585" loading="lazy" src="/bujairi/optimized/c334f0cd19a6d2c6a4dcafd629b171bf52dfa477__90e233aaa358-ec3c8d1e136c919e.webp" width="1600"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="742" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/12dde91a2e1d0516d29ea50b4bce8e5428a166bc__765b259fe742.jpeg" width="742"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">كوفا للحلويات</div>
+<div class="type"></div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="5" data-product-name="Long Chim" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/5/long-chim/index.html">
+<div class="bg">
+<img alt="Long Chim" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/4662cdb0543f37db5dd9dd8160c0ffba6958b026__90e233aaa358-75f82d6b7eaf79a5.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/681bd55fd60c18086636e068378b27c80f591401__765b259fe742.png" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">لونق تشيم</div>
+<div class="type">تايلندي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="6" data-product-name="Maiz" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/6/maiz/index.html">
+<div class="bg">
+<img alt="Maiz" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/18f0cd54ac1189d4d194483aafa81b19a1d3ea53__90e233aaa358-ceccf05cd6ac0999.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/optimized/2b8446f4a015ab2248a60c6d7aae31e5148b7b69__765b259fe742-22c6a7f032304dc8.webp" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">ميز</div>
+<div class="type">سعودي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="7" data-product-name="Sarabeth's" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/7/sarabeths/index.html">
+<div class="bg">
+<img alt="Sarabeth's" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/e2b212c3e3e995fec6aab280de9222e036ea5548__90e233aaa358-9e5c30f90bd35bce.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/6fdd2c48d28d6ae34e943cb991f3f4ac70aba1e3__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">سارابيث</div>
+<div class="type">أمريكي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="8" data-product-name="Somewhere" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/8/somewhere/index.html">
+<div class="bg">
+<img alt="Somewhere" class="img-fluid" decoding="async" height="1080" loading="lazy" src="/bujairi/optimized/1cd3c84939397f11560c2182bb849082c8b7780f__90e233aaa358-fa9d9dd478fe7345.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/171328c841175e3868d895bd0596476a2e3d657d__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">سموير</div>
+<div class="type">عربي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="9" data-product-name="Villa Mamas" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/9/villa-mamas/index.html">
+<div class="bg">
+<img alt="Villa Mamas" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/8ac4478b64d9249e8ea05d819ef894716efcf890__90e233aaa358-ee8d6b1b1ca4297d.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/d61080bc423e0e9f8a2e168a4966729002b7a7e4__765b259fe742.png" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">فيلا ماماز</div>
+<div class="type">بحريني</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="10" data-product-name="Angelina" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/10/angelina/index.html">
+<div class="bg">
+<img alt="Angelina" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/62d35c7e8a573ce2e3c2f58fef5bfefb5bd89b0c__90e233aaa358-4b0d5a40f10a760d.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/optimized/025684d674038de717849ab7648ac07d9e758380__765b259fe742-7a1ee86219894d1b.webp" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">انجلينا</div>
+<div class="type">فرنسي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="11" data-product-name="Sum + Things" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/11/sum-things/index.html">
+<div class="bg">
+<img alt="Sum + Things" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/708d2b1f002656fa349b6e1bac06423516b9c940__90e233aaa358-1df1c1e89db5b1b7.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/0ccb0c4936c6f8f2bc582de782f586009a79dcb3__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">سَـم +ثينغز</div>
+<div class="type">عالمي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="12" data-product-name="Flamingo Room " data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/12/flamingo-room/index.html">
+<div class="bg">
+<img alt="Flamingo Room " class="img-fluid" decoding="async" height="583" loading="lazy" src="/bujairi/optimized/6d48728583b18cb8fcd457a955d4de5ecef627e4__90e233aaa358-fc9e64ba3309297a.webp" width="1600"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/4e6f28ff2f9e5b6ec454f69466108ee0d11cca0f__765b259fe742.jpeg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">فلامينغو روم</div>
+<div class="type">أوروبي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="16" data-product-name="Takya" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/16/takya/index.html">
+<div class="bg">
+<img alt="Takya" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/3c2475d677b483d98054db4b2056199aa65d6d89__90e233aaa358-e0c78518113dd56f.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/d0439724baefb87c36ab9686e0b0c4e47a8df8ff__765b259fe742.jpg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">تكية</div>
+<div class="type">سعودي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="17" data-product-name="Altopiano" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/17/altopiano/index.html">
+<div class="bg">
+<img alt="Altopiano" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/e3ec2ab6a7849e584da4a00fb41ef0acdb9d3560__90e233aaa358-b33bceda5145c2de.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/f140c9e5e0c441879d2c2d00a42dc1b0a1f87a51__765b259fe742.jpg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">ألتوبيانو </div>
+<div class="type">إيطالي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="19" data-product-name="African Lounge" data-product-position="na" data-product-price="150.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/19/african-lounge/index.html">
+<div class="bg">
+<img alt="African Lounge" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/82b7017ee1f5e2aeeeb1976f6b70e2c72681c9ef__90e233aaa358-a07a115f6353a6ac.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="1500" loading="lazy" src="/bujairi/optimized/86bf1bacf103acc43409d31b2f39892951546ff2__765b259fe742-33690296cd799fd3.webp" width="1500"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">أفريكان لاونج</div>
+<div class="type">أفريقي</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="20" data-product-name="MAISON ASSOULINE" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/20/maison-assouline/index.html">
+<div class="bg">
+<img alt="MAISON ASSOULINE" class="img-fluid" decoding="async" height="466" loading="lazy" src="/bujairi/optimized/513905dc523d74baeae65ca18e304ec12a101745__90e233aaa358-028a5f90dc5eef88.webp" width="1280"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="500" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/f7db7cb9aba48e752438edbb8fb33db4a760dedf__765b259fe742.jpeg" width="500"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">ميزون أسولين</div>
+<div class="type"></div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="21" data-product-name="Dolce and Gabbana Caffe" data-product-position="na" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/21/dolce-and-gabbana-caffe/index.html">
+<div class="bg">
+<img alt="Dolce and Gabbana Caffe" class="img-fluid" decoding="async" height="700" loading="lazy" src="/bujairi/optimized/efdf8102069e93691cdf9874e3a7a68209876169__90e233aaa358-3940457c1dd3446c.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/assets/s3.ticketmx.com/uploads/images/c363428069a78389c5fc6e6a254e67bee14192a1__765b259fe742.jpg" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">دولتشي اند غابانا كافيه</div>
+<div class="type"></div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+<a class="d-block card__restaurant gtmRestaurant" data-event="productClick" data-product-brand="na" data-product-category="Restaurant" data-product-city="الدرعية ، الرياض" data-product-id="22" data-product-name="LIZA" data-product-position="na" data-product-price="50.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/b/22/liza/index.html">
+<div class="bg">
+<img alt="LIZA" class="img-fluid" decoding="async" height="1120" loading="lazy" src="/bujairi/optimized/db19a6d6edbff851dda08f1ba06b59e935f09640__90e233aaa358-9b7b7e190fc3d271.webp" width="1920"/>
+</div>
+<div class="logo__data d-flex align-items-end">
+<div class="logo">
+<img alt="" decoding="async" height="750" loading="lazy" src="/bujairi/optimized/17fc57d1db0f816371d6c1ef1d6287110a47ef64__765b259fe742-73d89c3f4ca5c437.webp" width="750"/>
+</div>
+<div class="data d-flex flex-column align-items-start">
+<div class="type__title">
+<div class="title">ليزا</div>
+<div class="type"></div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div>
+<!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

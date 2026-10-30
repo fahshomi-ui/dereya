@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>الشروط والأحكام - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="الشروط والأحكام - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-c6c0c47f90fb6c89.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/terms/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/terms/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<div class="user-pages bg-mx py-6">
+<div class="container-wide">
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+<div class="card">
+<div class="card-header bg-tertiary">
+<h4 class="text-center mb-0">الشروط والأحكام</h4>
+</div>
+<div class="card-body">
+<p><br/>يلتزم حامل هذه التذكرة بهذه الأحكام والشروط عند صدور التذكرة أو إستخدامها أو محاولة إستخدامها.</p><ul><li>التذاكر غير قابلة للإلغاء، الإسترجاع أو التبديل.</li><li>بشراء هذه التذكرة، توافق على الامتثال لكافة الأحكام والشروط والإمتثال لأحكام وشروط إخرى وقيود الجهة المنظمة قبل الفعالية أو خلالها.</li></ul><p>• في حالة تم الغاء، تأجيل، أو تغيير موعد الفعالية:</p><p>▪ يتم إعادة قيمة التذكرة كرصيد بالمحفظة الالكترونية لدى مزود الخدمة.</p><p>▪ يحق للعميل استخدام الرصيد لشراء تذكرة جديدة لنفس الفعالية أو أي فعالية أخرى مقدمة من مزود الخدمة.</p><p>• حامل التذكرة مسؤول عن التحقق من تاريخ الفعالية ووقتها ومكانها والعمر المفروض لحضورها كما يجب من حاملي التذكرة الوصول باكراً الى موقع الفعالية، ويحق للجهة المنظمة أن ترفض دخول الأشخاص المتأخرين، وفي هذه الحالة لن يجوز لحامل التذكرة ان يطالب باسترداد سعر التذكرة أو طلب تعويض من أي نوع كان.</p><p>•الإقرار والالتزام بلائحة المحافظة على الذوق العام <a href="#">(لمشاهدة الائحة اضغط هنا)</a></p><p>• قد يتم تفتيش حاملي التذاكر ومقتنياتهم الشخصية عند دخول موقع الفعالية، وسوف يتم مصادرة المواد الخطرة والمحظورة، كما ستتم مصادرة كل مادة ترى الجهة المنظمة أو الجهاز الأمني في مقر الفعالية أنها خطرة أو يمكن أن يتم استخدامها لإلحاق الضرر بالمكان أو إفساد الفعالية.</p><p>• جميع الأسعار تشمل قيمة الضريبة المضافة.</p><p>• يمنع دخول كاميرات التصوير الفوتوغرافي وكاميرات الفيديو الخاصة بالمحترفين إلى المكان.</p><p>• يوافق حامل التذكرة بصفته الحاضر لمكان الفعالية على الصور الفوتوغرافية ومقاطع الفيديو والمقاطع الصوتية المسجلة التي فد يتم نشرها على شبكة الأنترنت.</p><p>• لا تتحمل الجهة المنظمة مسؤولية الإصابات الجسدية أو الأمراض أو وفاة أي زائر (بما في ذلك حامل التذكرة) أو فقدان أو تضرر المقتنيات لأسباب ناجمة عن الفعالية أو مرتبطة بها.</p><p>• يمنع منعاً باتاً إعادة بيع التذكرة.</p><p>• للجهة المنظمة الحق في إخراج من يصدر عنه تصرف يعتبر برأي الجهة المنظمة مخالف.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div>
+<!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

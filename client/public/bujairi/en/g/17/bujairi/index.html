@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="en">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bujairi Terrace booking options - Bujairi Terrace restaurants and access pass </title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" name="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="Bujairi Terrace booking options - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-400.png" name="twitter:image"/>
+<meta content="TicketMX" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<meta content="cuhhfl3ulzg17vxxx7bq1tpveq8mz4" name="facebook-domain-verification"/>
+<style>
+</style>
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-en-7122e1482c621a5b.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-49d7f0028b3fa56f.js"></script></head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap">
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/en/ContactUs/index.html">Contact us</a>
+<a class="navbar-brand" href="/bujairi/en/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/ar/g/17/bujairi/index.html">العربية</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/g/17/bujairi/index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/g/17/bujairi/index.html">Booking Options</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Restaurants/g/17/bujairi/index.html">Restaurants</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Account/Register/index.html">Create Account</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/en/Account/Login/index.html">Sign In</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/en/ContactUs/index.html">Contact us</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/ar/g/17/bujairi/index.html">العربية</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav>
+<input id="hiddenLang" type="hidden" value="en"/>
+<!-- banner -->
+<div class="header">
+<div class="banner-slider banner-slider-before-init">
+<div class="slide">
+<picture>
+<source alt="bujairi-access-pass" class="img-fluid w-100" media="(min-width: 768px)" srcset="/bujairi/optimized/5b771d257ba30f7c1728ee2e1e6ccf3ff6872c3b__90e233aaa358-04be698df418fc09.webp"/>
+<img alt="bujairi-access-pass" class="img-fluid w-100" decoding="async" fetchpriority="high" height="750" loading="eager" src="/bujairi/optimized/198cf77dbc974298d8858a7b23a8e1385c73e6dd__765b259fe742-9d3d3181f08717a4.webp" width="750"/>
+</picture>
+</div>
+<div class="slide">
+<picture>
+<source alt="Al Traif" class="img-fluid w-100" media="(min-width: 768px)" srcset="/bujairi/optimized/5a0517dd0aa23d5c9da600a4a51d10dc586852c9__90e233aaa358-adcc0deb0c920075.webp"/>
+<img alt="Al Traif" class="img-fluid w-100" data-lazy="/bujairi/optimized/aa69f9758d6a91c6e64fdf3ce0210ce696ccbdde__765b259fe742-1cc4ab30efc9960f.webp" decoding="async" height="750" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" width="750"/>
+</picture>
+</div>
+</div>
+</div>
+<!-- Upcoming Events -->
+<section class="section upcoming">
+<div class="container-wide">
+<div class="main-title d-flex mb-3">
+<h2 class="title flex-grow-1">Bujairi Terrace booking options</h2>
+</div>
+<div class="row grid-wrapper">
+<div class="col-md-3 grid-sizer"></div>
+<div class="col-md-3 grid-item">
+<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="Diriyah, Riyadh, Saudi Arabia" data-product-id="3552" data-product-name="Diriyah Access" data-product-position="1" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/bujairi/en/d/3552/diriyah-access/index.html">
+<img alt="Diriyah Access" class="event-img img-fluid w-100" decoding="async" height="750" src="/bujairi/optimized/b2104f4be0007d24e2b3b38177d5736d76715819__765b259fe742-ce6e89a90956934f.webp" width="750"/>
+</a>
+</div>
+<div class="col-md-3 grid-item">
+<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="Diriyah, Riyadh, Saudi Arabia" data-product-id="4051" data-product-name="Bujairi Restaurants" data-product-position="2" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/bujairi/en/Restaurants/g/17/bujairi/index.html">
+<img alt="Bujairi Restaurants" class="event-img img-fluid w-100" decoding="async" height="750" src="/bujairi/optimized/195fb7c4314a10d831b3e0611017f275c548d23c__765b259fe742-ffe4b722fc4f5d56.webp" width="750"/>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div> <!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+</body>
+</html>

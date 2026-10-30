@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+<html data-loading-optimized="true" lang="ar">
+<head><script data-load-guard="true">(function () {
+  'use strict';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+
+  function sameOrigin(value) {
+    try {
+      var url = new URL(String(value || ''), location.href);
+      return (url.origin === location.origin && url.pathname.indexOf('/bujairi/') === 0) || url.protocol === 'data:' || url.protocol === 'blob:';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  var nativeFetch = window.fetch;
+  if (nativeFetch) {
+    window.fetch = function (input, options) {
+      var url = typeof input === 'string' || input instanceof URL ? input : input.url;
+      var method = (options && options.method) || (input && input.method) || 'GET';
+      if (!sameOrigin(url) || !/^(GET|HEAD)$/i.test(method)) {
+        return Promise.reject(new DOMException('', 'NotAllowedError'));
+      }
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+  var nativeOpen = XMLHttpRequest.prototype.open;
+  var nativeSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__localBlocked = !sameOrigin(url) || !/^(GET|HEAD)$/i.test(method);
+    return nativeOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    if (this.__localBlocked) { this.abort(); return; }
+    return nativeSend.apply(this, arguments);
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon = function () { return false; };
+  window.open = function (url) {
+    if (sameOrigin(url)) location.assign(String(url));
+    return null;
+  };
+  document.addEventListener('submit', function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  HTMLFormElement.prototype.submit = function () {};
+  if (HTMLFormElement.prototype.requestSubmit) HTMLFormElement.prototype.requestSubmit = function () {};
+  try {
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable: true,
+      get: function () { return null; },
+      set: function () {}
+    });
+  } catch (_) {
+    window.addEventListener('load', function () { window.onbeforeunload = null; });
+  }
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest && event.target.closest('a[href]');
+    if (anchor) {
+      var href = anchor.getAttribute('href') || '';
+      if (!/^(tel:|mailto:|#)/i.test(href) && !sameOrigin(anchor.href)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }
+    var shareButton = event.target.closest && event.target.closest('#share-website');
+    if (shareButton) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (window.jQuery) window.jQuery('#share-modal').modal('show');
+    }
+    var shareLink = event.target.closest && event.target.closest('#share-modal a');
+    if (shareLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      form.inert = false;
+      form.querySelectorAll('input, textarea, select, button').forEach(function (control) { control.inert = true; });
+    });
+    document.querySelectorAll('input[type="password"], input[type="email"], input[autocomplete="cc-number"]').forEach(function (input) {
+      input.inert = true;
+      input.value = '';
+    });
+  });
+}());
+</script>
+<link href="/bujairi/assets/s3.ticketmx.com/bujairi/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تصريح دخول الدرعية - Bujairi Terrace restaurants and access pass</title>
+<meta content="Bujairi" name="description"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="Bujairi" name="keywords"/>
+<meta content="تسجيل الدخول - Bujairi" property="og:title"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
+<meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
+<meta content="Bujairi" property="og:description"/>
+<meta content="website" name="og:type"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Bootstrap Css -->
+<!-- Vender Css -->
+<!-- Theme Css -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --> <!-- End Google Tag Manager -->
+<meta content="noindex, nofollow" name="robots"/><style data-brand-fonts="true">@font-face{font-family:"GraphikArabic";font-weight:normal;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:500;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:600;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:300;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2) format("woff2");}
+@font-face{font-family:"GraphikArabic";font-weight:100;;font-display:block;src:url(/bujairi/optimized/GraphikArabic-Extralight-18b6e9faa4967d26.woff2) format("woff2");}</style><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Regular-a77118fa0ac8a4a1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Medium-f7fdcb5f956d8178.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Semibold-39896b31be2df0b1.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" data-font-preload="true" href="/bujairi/optimized/GraphikArabic-Light-350e508f154ec2b9.woff2" rel="preload" type="font/woff2"/><script data-font-warmup="true">if(document.fonts){[300,400,500,600].forEach(function(w){document.fonts.load(w+" 16px GraphikArabic").catch(function(){});});}</script><link href="/bujairi/optimized/site-ar-b80fc4ed4a10cc94.css" rel="stylesheet"/><script defer="" src="/bujairi/optimized/runtime-93dd4b5dbbba7c08.js"></script></head>
+<body data-ticket-selection="ar">
+<!-- Google Tag Manager (noscript) -->
+<noscript></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) --> <noscript></noscript> <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="" id="wrap"><nav class="navbar navbar-expand-lg bg-primary flex-wrap nav__bujairi">
+<div class="d-flex align-items-center justify-content-lg-between justify-content-center w-100 py-3 top__nav">
+<a class="nav-link d-lg-block d-none" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+<a class="navbar-brand" href="/bujairi/ar/g/17/bujairi/index.html">
+<img alt="Bujairi Logo" class="logo" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/bujairi-ar.svg"/>
+</a>
+<a class="nav-link other-font languageLink d-lg-block d-none" href="/bujairi/en/b/3552/diriyah-access/index.html">English</a>
+</div>
+<hr class="hr"/>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon">
+<img alt="menu" class="menu-icon" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/btn-menu.svg"/>
+</span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav justify-content-lg-center justify-content-start d-lg-flex d-block w-100">
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">الرئيسية</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/g/17/bujairi/index.html">خيارات الحجز</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">المطاعم</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Register/index.html">حساب جديد</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/bujairi/ar/Account/Login/index.html">تسجيل دخول</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link" href="/bujairi/ar/ContactUs/index.html">اتصل بنا</a>
+</li>
+<li class="nav-item d-lg-none d-block">
+<a class="nav-link other-font languageLink" href="/bujairi/en/b/3552/diriyah-access/index.html">English</a>
+</li>
+</ul>
+</div>
+<hr class="hr"/>
+</nav><div class="page-header d-flex">
+<div class="container-wide px-0 px-lg-6 d-flex w-100 flex-column flex-lg-row">
+<div class="d-flex align-items-center">
+<div class="title flex-grow-1 text-lg-left text-center">
+                تصريح دخول الدرعية
+            </div>
+<div class="book-share mx-4 mt-2">
+<a href="#" id="share-website" title="Share this page">
+<i class="fa fa-share-alt fa-lg"></i>
+</a>
+</div>
+</div>
+<div class="steps d-flex align-items-center ml-auto">
+<ul class="steps-container clearfix w-100">
+<li class="visited">إختيار التذاكر</li>
+<li class="active">إتمام الشراء</li>
+<li>الدفع</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="dates-times bg-white shadow-lg">
+<div class="container-wide py-3">
+<div class="dates-row"><a class="dateSelector date active" data-calendar-date="2026-10-30" data-dateid="104045" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104045" style="">
+<div class="month">أكتوبر</div>
+<div class="day">30</div>
+<div class="day-name">اليوم</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-10-31" data-dateid="104046" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104046" style="">
+<div class="month">أكتوبر</div>
+<div class="day">31</div>
+<div class="day-name">غدا</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-01" data-dateid="104047" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104047" style="">
+<div class="month">نوفمبر</div>
+<div class="day">1</div>
+<div class="day-name">الأحد</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-02" data-dateid="104048" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104048" style="">
+<div class="month">نوفمبر</div>
+<div class="day">2</div>
+<div class="day-name">الاثنين</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-03" data-dateid="104049" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104049" style="">
+<div class="month">نوفمبر</div>
+<div class="day">3</div>
+<div class="day-name">الثلاثاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-04" data-dateid="104050" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104050" style="">
+<div class="month">نوفمبر</div>
+<div class="day">4</div>
+<div class="day-name">الأربعاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-05" data-dateid="104051" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104051" style="">
+<div class="month">نوفمبر</div>
+<div class="day">5</div>
+<div class="day-name">الخميس</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-06" data-dateid="104052" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104052" style="">
+<div class="month">نوفمبر</div>
+<div class="day">6</div>
+<div class="day-name">الجمعة</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-07" data-dateid="104053" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104053" style="">
+<div class="month">نوفمبر</div>
+<div class="day">7</div>
+<div class="day-name">السبت</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-08" data-dateid="104054" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104054" style="">
+<div class="month">نوفمبر</div>
+<div class="day">8</div>
+<div class="day-name">الأحد</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-09" data-dateid="104055" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104055" style="">
+<div class="month">نوفمبر</div>
+<div class="day">9</div>
+<div class="day-name">الاثنين</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-10" data-dateid="104056" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104056" style="">
+<div class="month">نوفمبر</div>
+<div class="day">10</div>
+<div class="day-name">الثلاثاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-11" data-dateid="104057" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104057" style="">
+<div class="month">نوفمبر</div>
+<div class="day">11</div>
+<div class="day-name">الأربعاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-12" data-dateid="104058" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104058" style="">
+<div class="month">نوفمبر</div>
+<div class="day">12</div>
+<div class="day-name">الخميس</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-13" data-dateid="104059" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104059" style="">
+<div class="month">نوفمبر</div>
+<div class="day">13</div>
+<div class="day-name">الجمعة</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-14" data-dateid="104060" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104060" style="">
+<div class="month">نوفمبر</div>
+<div class="day">14</div>
+<div class="day-name">السبت</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-15" data-dateid="104061" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104061" style="">
+<div class="month">نوفمبر</div>
+<div class="day">15</div>
+<div class="day-name">الأحد</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-16" data-dateid="104062" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104062" style="">
+<div class="month">نوفمبر</div>
+<div class="day">16</div>
+<div class="day-name">الاثنين</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-17" data-dateid="104063" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104063" style="">
+<div class="month">نوفمبر</div>
+<div class="day">17</div>
+<div class="day-name">الثلاثاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-18" data-dateid="104064" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104064" style="">
+<div class="month">نوفمبر</div>
+<div class="day">18</div>
+<div class="day-name">الأربعاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-19" data-dateid="104065" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104065" style="">
+<div class="month">نوفمبر</div>
+<div class="day">19</div>
+<div class="day-name">الخميس</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-20" data-dateid="104066" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104066" style="">
+<div class="month">نوفمبر</div>
+<div class="day">20</div>
+<div class="day-name">الجمعة</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-21" data-dateid="104067" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104067" style="">
+<div class="month">نوفمبر</div>
+<div class="day">21</div>
+<div class="day-name">السبت</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-22" data-dateid="104068" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104068" style="">
+<div class="month">نوفمبر</div>
+<div class="day">22</div>
+<div class="day-name">الأحد</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-23" data-dateid="104069" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104069" style="">
+<div class="month">نوفمبر</div>
+<div class="day">23</div>
+<div class="day-name">الاثنين</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-24" data-dateid="104070" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104070" style="">
+<div class="month">نوفمبر</div>
+<div class="day">24</div>
+<div class="day-name">الثلاثاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-25" data-dateid="104071" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104071" style="">
+<div class="month">نوفمبر</div>
+<div class="day">25</div>
+<div class="day-name">الأربعاء</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-26" data-dateid="104072" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104072" style="">
+<div class="month">نوفمبر</div>
+<div class="day">26</div>
+<div class="day-name">الخميس</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-27" data-dateid="104073" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104073" style="">
+<div class="month">نوفمبر</div>
+<div class="day">27</div>
+<div class="day-name">الجمعة</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-28" data-dateid="104074" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104074" style="">
+<div class="month">نوفمبر</div>
+<div class="day">28</div>
+<div class="day-name">السبت</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-29" data-dateid="104075" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104075" style="">
+<div class="month">نوفمبر</div>
+<div class="day">29</div>
+<div class="day-name">الأحد</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-11-30" data-dateid="104076" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104076" style="">
+<div class="month">نوفمبر</div>
+<div class="day">30</div>
+<div class="day-name">الاثنين</div>
+</a> <a class="dateSelector date" data-calendar-date="2026-12-01" data-dateid="2026-12-01" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=2026-12-01" style="">
+<div class="month">ديسمبر</div>
+<div class="day">1</div>
+<div class="day-name">الثلاثاء</div>
+</a> </div>
+<div class="times-row">
+<a class="timeSelector time active" data-dateid="104044" data-timeid="480011" href="/bujairi/ar/b/3552/diriyah-access/index.html?d=104044&amp;t=480011" style="">
+                            05:00 م <span class="endTime" style=""> - 01:00 ص</span>
+</a>
+</div>
+</div>
+</div>
+<div class="catList container-wide py-4 py-lg-5">
+<div class="row">
+<div class="col-md-8 offset-md-2 cart">
+<div class="card">
+<div class="card-header my-header2">
+<h5 class="mb-0">
+<span>
+                                الرجاء الاختيار
+                            </span>
+</h5>
+</div>
+<div class="card-body">
+<div class="d-flex cart-row mx-0 px-2 flex-column flex-lg-row align-items-center" style="">
+<div class="flex-grow-1 mx-2">
+<div class="event-name mx-auto text-center text-lg-left">
+<div>
+                                                    دخول الدرعية -  <label>(الحد الأقصى <span id="lblQty1442493">8</span>)</label>
+</div>
+</div>
+</div>
+<div class="text-nowrap mx-lg-2 my-3 my-lg-0 mx-auto catRowPrice">
+<div class="the-price">
+                                                50.00 ريال
+                                            </div>
+</div>
+<div class="text-nowrap mx-lg-2 mx-auto">
+<div class="number_ticket d-flex align-items-center">
+<span aria-label="+" class="catinc button input-number-increment" role="button" tabindex="0"></span>
+<input class="catQty input-number" data-id="1442493" data-language="ar" id="txtQty1442493" max="8" min="0" readonly="" type="number" value="0"/>
+<span aria-label="-" class="catdec button input-number-decrement" role="button" tabindex="0"></span>
+</div>
+</div>
+</div>
+<div class="d-flex cart-row mx-0 px-2">
+<div class="flex-grow-1 mx-2">
+<div class="event-name font-weight-bold lead">الإجمالي</div>
+</div>
+<div class="mx-2 pl-0 font-weight-bold text-nowrap"> <span id="cartTotal">0</span> ريال</div>
+</div>
+</div>
+</div>
+<a class="gtmLink btn btn-lg btn-primary btn-block mt-4 my-radius py-4" data-event="add_to_cart" data-event-action="Book Now" data-event-category="Ticket Selection" data-event_category="" data-event_city="Diriyah, Riyadh, Saudi Arabia" data-event_zone="" data-language="ar" href="#ticket-review" id="btnCatGoToCart" title="Diriyah Access">
+                    اشتر الآن
+                </a>
+</div>
+<!-- map -->
+<!-- box -->
+</div>
+</div>
+<div class="modal" id="share-modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">مشاركة على</h5>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body d-flex justify-content-center">
+<a class="mx-2" href="#" id="share-facebook" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-twitter" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-linkedin" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-whatsapp" title="Share on WhatsApp"><i aria-hidden="true" class="fa fa-whatsapp fa-2x"></i></a>
+<a class="mx-2" href="#" id="share-email" title="Share via Email"><i aria-hidden="true" class="fa fa-envelope fa-2x"></i></a>
+</div>
+</div>
+</div>
+</div>
+<style>
+    .accordion .collapsing {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+</style>
+</div>
+<div class="footer__bujairi py-0" id="footer">
+<div class="footer__contact d-flex justify-content-between flex-md-nowrap flex-wrap">
+<span class="copyright">
+            Copyright 2024 DGCL. All Rights Reserved
+        </span>
+<a class="phone d-flex align-items-center mb-md-0" href="tel:00966920021727">
+<img alt="phone" src="/bujairi/assets/s3.ticketmx.com/bujairi/images/phone.svg"/>
+<span style="direction:ltr">
+                +966 92 0021 727
+            </span>
+</a>
+</div>
+</div>
+<!-- Main Scripts -->
+<!-- Vendor Scripts -->
+<!-- Theme Scripts -->
+<div aria-labelledby="ticket-review-title" aria-modal="true" class="modal fade" id="ticket-review" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header bg-tertiary">
+<h5 class="modal-title" id="ticket-review-title">إتمام الشراء</h5>
+<button aria-label="×" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body" id="ticket-review-content"></div>
+</div>
+</div>
+</div>
+<script id="ticket-selection-data" type="application/json">{"calendar": {"timeZone": "Asia/Riyadh", "anchorDate": "2026-10-29", "windowDays": 33}, "dates": [{"day": "29", "dayName": "اليوم", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104044", "id": "104044", "month": "أكتوبر"}, {"day": "30", "dayName": "غدا", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104045", "id": "104045", "month": "أكتوبر"}, {"day": "31", "dayName": "السبت", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104046", "id": "104046", "month": "أكتوبر"}, {"day": "1", "dayName": "الأحد", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104047", "id": "104047", "month": "نوفمبر"}, {"day": "2", "dayName": "الاثنين", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104048", "id": "104048", "month": "نوفمبر"}, {"day": "3", "dayName": "الثلاثاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104049", "id": "104049", "month": "نوفمبر"}, {"day": "4", "dayName": "الأربعاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104050", "id": "104050", "month": "نوفمبر"}, {"day": "5", "dayName": "الخميس", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104051", "id": "104051", "month": "نوفمبر"}, {"day": "6", "dayName": "الجمعة", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104052", "id": "104052", "month": "نوفمبر"}, {"day": "7", "dayName": "السبت", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104053", "id": "104053", "month": "نوفمبر"}, {"day": "8", "dayName": "الأحد", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104054", "id": "104054", "month": "نوفمبر"}, {"day": "9", "dayName": "الاثنين", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104055", "id": "104055", "month": "نوفمبر"}, {"day": "10", "dayName": "الثلاثاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104056", "id": "104056", "month": "نوفمبر"}, {"day": "11", "dayName": "الأربعاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104057", "id": "104057", "month": "نوفمبر"}, {"day": "12", "dayName": "الخميس", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104058", "id": "104058", "month": "نوفمبر"}, {"day": "13", "dayName": "الجمعة", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104059", "id": "104059", "month": "نوفمبر"}, {"day": "14", "dayName": "السبت", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104060", "id": "104060", "month": "نوفمبر"}, {"day": "15", "dayName": "الأحد", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104061", "id": "104061", "month": "نوفمبر"}, {"day": "16", "dayName": "الاثنين", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104062", "id": "104062", "month": "نوفمبر"}, {"day": "17", "dayName": "الثلاثاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104063", "id": "104063", "month": "نوفمبر"}, {"day": "18", "dayName": "الأربعاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104064", "id": "104064", "month": "نوفمبر"}, {"day": "19", "dayName": "الخميس", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104065", "id": "104065", "month": "نوفمبر"}, {"day": "20", "dayName": "الجمعة", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104066", "id": "104066", "month": "نوفمبر"}, {"day": "21", "dayName": "السبت", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104067", "id": "104067", "month": "نوفمبر"}, {"day": "22", "dayName": "الأحد", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104068", "id": "104068", "month": "نوفمبر"}, {"day": "23", "dayName": "الاثنين", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104069", "id": "104069", "month": "نوفمبر"}, {"day": "24", "dayName": "الثلاثاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104070", "id": "104070", "month": "نوفمبر"}, {"day": "25", "dayName": "الأربعاء", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104071", "id": "104071", "month": "نوفمبر"}, {"day": "26", "dayName": "الخميس", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104072", "id": "104072", "month": "نوفمبر"}, {"day": "27", "dayName": "الجمعة", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104073", "id": "104073", "month": "نوفمبر"}, {"day": "28", "dayName": "السبت", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104074", "id": "104074", "month": "نوفمبر"}, {"day": "29", "dayName": "الأحد", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104075", "id": "104075", "month": "نوفمبر"}, {"day": "30", "dayName": "الاثنين", "href": "/bujairi/ar/b/3552/diriyah-access/index.html?d=104076", "id": "104076", "month": "نوفمبر"}], "performances": [{"dateId": "104044", "tickets": [{"id": "1442493", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480011", "label": "05:00 م - 01:00 ص"}]}, {"dateId": "104045", "tickets": [{"id": "1442494", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480012", "label": "05:00 م - 01:00 ص"}]}, {"dateId": "104046", "tickets": [{"id": "1442495", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480013", "label": "05:00 م - 12:00 ص"}]}, {"dateId": "104047", "tickets": [{"id": "1442496", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480014", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104048", "tickets": [{"id": "1442497", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480015", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104049", "tickets": [{"id": "1442498", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480016", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104050", "tickets": [{"id": "1442499", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480017", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104051", "tickets": [{"id": "1442500", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480018", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104052", "tickets": [{"id": "1442501", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480019", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104053", "tickets": [{"id": "1442502", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480020", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104054", "tickets": [{"id": "1442503", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480021", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104055", "tickets": [{"id": "1442504", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480022", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104056", "tickets": [{"id": "1442505", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480023", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104057", "tickets": [{"id": "1442506", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480024", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104058", "tickets": [{"id": "1442507", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480025", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104059", "tickets": [{"id": "1442508", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480026", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104060", "tickets": [{"id": "1442509", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480027", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104061", "tickets": [{"id": "1442510", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480028", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104062", "tickets": [{"id": "1442511", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480029", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104063", "tickets": [{"id": "1442512", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480030", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104064", "tickets": [{"id": "1442513", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480031", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104065", "tickets": [{"id": "1442514", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480032", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104066", "tickets": [{"id": "1442515", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480033", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104067", "tickets": [{"id": "1442516", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480034", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104068", "tickets": [{"id": "1442517", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480035", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104069", "tickets": [{"id": "1442518", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480036", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104070", "tickets": [{"id": "1442519", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480037", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104071", "tickets": [{"id": "1442520", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480038", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104072", "tickets": [{"id": "1442521", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480039", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104073", "tickets": [{"id": "1442522", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480040", "label": "05:00 م بعد منتصف الليل - 01:00 ص"}]}, {"dateId": "104074", "tickets": [{"id": "1442523", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480041", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104075", "tickets": [{"id": "1442524", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480042", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}, {"dateId": "104076", "tickets": [{"id": "1442525", "max": 8, "min": 0, "name": "دخول الدرعية - (الحد الأقصى 8)", "price": 50}], "times": [{"id": "480043", "label": "05:00 م بعد منتصف الليل - 12:00 ص"}]}]}</script><script data-ticket-inline="true">(function () {
+  'use strict';
+  var defaultTimeZone = 'Asia/Riyadh';
+
+  function parts(now, timeZone) {
+    var result = Object.create(null);
+    new Intl.DateTimeFormat('en-GB-u-ca-gregory', {
+      timeZone: timeZone || defaultTimeZone,
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+    }).formatToParts(now).forEach(function (part) { result[part.type] = part.value; });
+    return result;
+  }
+  function today(now, timeZone) {
+    var value = parts(now || new Date(), timeZone);
+    return value.year + '-' + value.month + '-' + value.day;
+  }
+  function addDays(key, count) {
+    var value = new Date(key + 'T12:00:00Z');
+    value.setUTCDate(value.getUTCDate() + count);
+    return value.toISOString().slice(0, 10);
+  }
+  function millisecondsToNextDay(now, timeZone) {
+    var value = parts(now, timeZone);
+    var elapsed = Number(value.hour) * 3600000 + Number(value.minute) * 60000 +
+      Number(value.second) * 1000 + now.getUTCMilliseconds();
+    return 86400000 - elapsed;
+  }
+  function build(snapshot, language, now) {
+    var settings = snapshot.calendar || {};
+    var first = today(now || new Date(), settings.timeZone);
+    var anchor = settings.anchorDate || '2026-10-29';
+    var count = Number(settings.windowDays) || snapshot.dates.length;
+    var knownDates = Object.create(null);
+    var knownPerformances = Object.create(null);
+    var weekdayTemplates = Object.create(null);
+    snapshot.performances.forEach(function (performance) {
+      knownPerformances[performance.dateId] = performance;
+    });
+    snapshot.dates.forEach(function (date, index) {
+      var key = addDays(anchor, index);
+      knownDates[key] = date;
+      var weekday = new Date(key + 'T12:00:00Z').getUTCDay();
+      if (!weekdayTemplates[weekday] && knownPerformances[date.id]) {
+        weekdayTemplates[weekday] = knownPerformances[date.id];
+      }
+    });
+    var locale = language === 'ar' ? 'ar-SA-u-ca-gregory' : 'en-US-u-ca-gregory';
+    var monthFormatter = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' });
+    var weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' });
+    var dates = [];
+    var performances = [];
+    for (var offset = 0; offset < count; offset++) {
+      var key = addDays(first, offset);
+      var civilDate = new Date(key + 'T12:00:00Z');
+      var original = knownDates[key];
+      var id = original ? original.id : key;
+      var source = original ? knownPerformances[id] : weekdayTemplates[civilDate.getUTCDay()];
+      source = source || snapshot.performances[0];
+      dates.push({
+        id: id, isoDate: key, day: String(civilDate.getUTCDate()),
+        month: monthFormatter.format(civilDate),
+        dayName: offset === 0 ? (language === 'ar' ? 'اليوم' : 'Today') :
+          offset === 1 ? (language === 'ar' ? 'غدا' : 'Tomorrow') : weekdayFormatter.format(civilDate),
+        href: '/bujairi/'+language + '/b/3552/diriyah-access/index.html?d=' + encodeURIComponent(id)
+      });
+      // New days use local calendar identifiers, never guessed source inventory IDs.
+      performances.push({
+        dateId: id,
+        times: source.times.map(function (time, index) {
+          return { id: original ? time.id : 'local-' + key + '-time-' + index, label: time.label };
+        }),
+        tickets: source.tickets.map(function (ticket, index) {
+          return { id: original ? ticket.id : 'local-' + key + '-ticket-' + index,
+            min: ticket.min, max: ticket.max, price: ticket.price, name: ticket.name };
+        })
+      });
+    }
+    return { today: first, dates: dates, performances: performances };
+  }
+  window.DiriyahCalendar = {
+    build: build, today: today, addDays: addDays, millisecondsToNextDay: millisecondsToNextDay
+  };
+}());
+
+(function () {
+  'use strict';
+  var payload = document.getElementById('ticket-selection-data');
+  if (!payload) return;
+  var snapshot = JSON.parse(payload.textContent);
+  var language = document.body.getAttribute('data-ticket-selection') || 'ar';
+  var calendar = window.DiriyahCalendar;
+  var data = calendar.build(snapshot, language, new Date());
+  var basePath = '/bujairi/'+language + '/b/3552/diriyah-access/index.html';
+  var storageKey = 'diriyah-ui-selection-3552-v1';
+  var performances = Object.create(null);
+  data.performances.forEach(function (performance) { performances[performance.dateId] = performance; });
+  var dateRow = document.querySelector('#wrap .dates-row');
+  var dateTemplate = dateRow.querySelector('.dateSelector').cloneNode(true);
+  var rolloverTimer;
+  var templateRow = document.querySelector('.catList input.catQty').closest('.cart-row').cloneNode(true);
+  var rowContainer = document.querySelector('.catList .card-body');
+  var totalRow = document.getElementById('cartTotal').closest('.cart-row');
+  var timeTemplate = document.querySelector('.timeSelector').cloneNode(true);
+  var state = { dateId: data.dates[0].id, timeId: '', quantities: Object.create(null) };
+  try {
+    var saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    if (saved && typeof saved === 'object' && !Array.isArray(saved)) {
+      if (typeof saved.dateId === 'string' && performances[saved.dateId]) {
+        state.dateId = saved.dateId;
+        state.timeId = typeof saved.timeId === 'string' ? saved.timeId : '';
+      }
+      if (saved.quantities && typeof saved.quantities === 'object' && !Array.isArray(saved.quantities)) {
+        Object.keys(saved.quantities).forEach(function (dateId) {
+          if (!performances[dateId]) return;
+          var counts = saved.quantities[dateId];
+          if (!counts || typeof counts !== 'object' || Array.isArray(counts)) return;
+          state.quantities[dateId] = Object.create(null);
+          performances[dateId].tickets.forEach(function (ticket) {
+            var value = Number(counts[ticket.id]);
+            if (Number.isFinite(value)) {
+              state.quantities[dateId][ticket.id] = Math.max(ticket.min, Math.min(ticket.max, Math.trunc(value)));
+            }
+          });
+        });
+      }
+    }
+  } catch (_) {}
+
+  function renderDates() {
+    var fragment = document.createDocumentFragment();
+    var scrollPosition = dateRow.scrollLeft;
+    data.dates.forEach(function (date) {
+      var link = dateTemplate.cloneNode(true);
+      link.setAttribute('data-dateid', date.id);
+      link.setAttribute('data-calendar-date', date.isoDate);
+      link.href = date.href;
+      link.classList.remove('active', 'disable');
+      link.querySelector('.month').textContent = date.month;
+      link.querySelector('.day').textContent = date.day;
+      link.querySelector('.day-name').textContent = date.dayName;
+      fragment.appendChild(link);
+      fragment.appendChild(document.createTextNode(' '));
+    });
+    dateRow.replaceChildren(fragment);
+    dateRow.scrollLeft = scrollPosition;
+  }
+  function refreshCalendar(now) {
+    now = now || new Date();
+    var zone = snapshot.calendar && snapshot.calendar.timeZone;
+    if (calendar.today(now, zone) === data.today) return false;
+    var next = calendar.build(snapshot, language, now);
+    data = next;
+    performances = Object.create(null);
+    data.performances.forEach(function (performance) { performances[performance.dateId] = performance; });
+    Object.keys(state.quantities).forEach(function (dateId) {
+      if (!performances[dateId]) delete state.quantities[dateId];
+    });
+    if (!performances[state.dateId]) {
+      state.dateId = data.dates[0].id;
+      state.timeId = '';
+      dateRow.scrollLeft = 0;
+      if (window.jQuery) window.jQuery('#ticket-review').modal('hide');
+    }
+    renderDates();
+    return true;
+  }
+  function checkDay() {
+    var now = new Date();
+    if (refreshCalendar(now)) render(false);
+    window.clearTimeout(rolloverTimer);
+    var zone = snapshot.calendar && snapshot.calendar.timeZone;
+    var delay = calendar.millisecondsToNextDay(now, zone);
+    rolloverTimer = window.setTimeout(checkDay, Math.min(60000, delay + 25));
+  }
+  function save() {
+    try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (_) {}
+  }
+  function number(value) {
+    return Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 });
+  }
+  function localTime(label) {
+    return language === 'ar' ? label : label.replace(/بعد منتصف الليل/g, 'After Midnight').replace(/م/g, 'pm').replace(/ص/g, 'am');
+  }
+  function performance() { return performances[state.dateId]; }
+  function quantities() {
+    if (!state.quantities[state.dateId]) state.quantities[state.dateId] = {};
+    return state.quantities[state.dateId];
+  }
+  function amount(ticket) {
+    var value = Number(quantities()[ticket.id]) || 0;
+    return Math.max(ticket.min, Math.min(ticket.max, Math.trunc(value)));
+  }
+  function total() {
+    return performance().tickets.reduce(function (sum, ticket) {
+      return sum + amount(ticket) * Math.round(ticket.price * 100);
+    }, 0) / 100;
+  }
+  function updateTotals() {
+    performance().tickets.forEach(function (ticket) {
+      var input = document.querySelector('.catList input[data-id="' + ticket.id + '"]');
+      if (!input) return;
+      var value = amount(ticket);
+      quantities()[ticket.id] = value;
+      input.value = String(value);
+      input.setAttribute('aria-valuenow', String(value));
+      var row = input.closest('.cart-row');
+      row.querySelector('.catinc').setAttribute('aria-disabled', String(value >= ticket.max));
+      row.querySelector('.catdec').setAttribute('aria-disabled', String(value <= ticket.min));
+    });
+    document.getElementById('cartTotal').textContent = number(total());
+    save();
+  }
+  function updateUrl(push) {
+    var url = basePath + '?d=' + encodeURIComponent(state.dateId);
+    if (state.timeId) url += '&t=' + encodeURIComponent(state.timeId);
+    if (push) history.pushState(null, '', url);
+    else history.replaceState(null, '', url);
+    document.querySelectorAll('a.languageLink').forEach(function (link) {
+      link.href = '/bujairi/'+(language === 'ar' ? 'en' : 'ar') + '/b/3552/diriyah-access/index.html?d=' +
+        encodeURIComponent(state.dateId) + '&t=' + encodeURIComponent(state.timeId);
+    });
+  }
+  function render(push) {
+    var current = performance();
+    if (!current.times.some(function (time) { return time.id === state.timeId; })) {
+      state.timeId = current.times.length ? current.times[0].id : '';
+    }
+    document.querySelectorAll('#wrap .dateSelector').forEach(function (link) {
+      var active = link.getAttribute('data-dateid') === state.dateId;
+      link.classList.toggle('active', active);
+      link.setAttribute('aria-current', active ? 'date' : 'false');
+    });
+    var times = document.querySelector('.times-row');
+    times.textContent = '';
+    current.times.forEach(function (time) {
+      var link = timeTemplate.cloneNode(true);
+      link.textContent = localTime(time.label);
+      link.setAttribute('data-dateid', state.dateId);
+      link.setAttribute('data-timeid', time.id);
+      link.href = basePath + '?d=' + state.dateId + '&t=' + time.id;
+      link.classList.toggle('active', time.id === state.timeId);
+      times.appendChild(link);
+      times.appendChild(document.createTextNode(' '));
+    });
+    rowContainer.querySelectorAll('.cart-row').forEach(function (row) {
+      if (row !== totalRow) row.remove();
+    });
+    current.tickets.forEach(function (ticket) {
+      var row = templateRow.cloneNode(true);
+      var input = row.querySelector('input.catQty');
+      input.id = 'txtQty' + ticket.id;
+      input.setAttribute('data-id', ticket.id);
+      input.setAttribute('data-language', language);
+      input.max = String(ticket.max);
+      input.min = String(ticket.min);
+      var limit = row.querySelector('.event-name label span');
+      if (limit) { limit.id = 'lblQty' + ticket.id; limit.textContent = String(ticket.max); }
+      var price = row.querySelector('.the-price');
+      price.textContent = templateRow.querySelector('.the-price').textContent.replace(/[0-9.,]+/, ticket.price.toFixed(2));
+      rowContainer.insertBefore(row, totalRow);
+    });
+    updateTotals();
+    updateUrl(push);
+  }
+  function fromUrl() {
+    refreshCalendar();
+    var params = new URLSearchParams(location.search);
+    var date = params.get('d');
+    if (date && performances[date]) state.dateId = date;
+    else if (date || !performances[state.dateId]) state.dateId = data.dates[0].id;
+    state.timeId = params.get('t') || '';
+    render(false);
+  }
+  function showAddedVisitorNotice() {
+    if (!window.alertify) return;
+    // Reproduce the source UI message; the selection remains a local UI simulation.
+    window.alertify.dismissAll();
+    var sourceMessage = language === 'ar'
+      ? 'تم الحجز                         و الوقت المتاح لاتمام الحجز هو 10 دقايق'
+      : 'Reserved     , please complete your purchase in 10 minutes';
+    window.alertify.notify(sourceMessage, 'success', 50, function () {});
+  }
+  function adjust(control, difference) {
+    var input = control.closest('.cart-row').querySelector('input.catQty');
+    var ticket = performance().tickets.find(function (item) { return item.id === input.getAttribute('data-id'); });
+    if (!ticket) return;
+    var previous = amount(ticket);
+    var next = Math.max(ticket.min, Math.min(ticket.max, previous + difference));
+    quantities()[ticket.id] = next;
+    updateTotals();
+    if (difference > 0 && next > previous) showAddedVisitorNotice();
+  }
+  function review() {
+    var count = performance().tickets.reduce(function (sum, ticket) { return sum + amount(ticket); }, 0);
+    if (count === 0) {
+      if (window.alertify) {
+        window.alertify.alert().setting({
+          title: language === 'ar' ? 'ملاحظة' : 'Notice',
+          message: language === 'ar' ? 'يرجي اختيار التذاكر أولا' : 'Please choose ticket first',
+          closable: false
+        }).show();
+      }
+      return;
+    }
+    save();
+    var content = document.getElementById('ticket-review-content');
+    content.textContent = '';
+    var selectedDate = document.querySelector('#wrap .dateSelector.active');
+    var selectedTime = document.querySelector('#wrap .timeSelector.active');
+    var dateTime = document.createElement('div');
+    dateTime.className = 'dates-times mb-3';
+    if (selectedDate) dateTime.appendChild(selectedDate.cloneNode(true));
+    if (selectedTime) dateTime.appendChild(selectedTime.cloneNode(true));
+    dateTime.querySelectorAll('a').forEach(function (link) { link.removeAttribute('href'); });
+    content.appendChild(dateTime);
+    var cart = document.createElement('div');
+    cart.className = 'cart';
+    cart.appendChild(document.querySelector('.catList .card').cloneNode(true));
+    cart.querySelectorAll('[id]').forEach(function (item) { item.removeAttribute('id'); });
+    cart.querySelectorAll('.catinc,.catdec,input').forEach(function (item) {
+      item.inert = true;
+      item.setAttribute('tabindex', '-1');
+    });
+    content.appendChild(cart);
+    var sourceButton = document.getElementById('btnCatGoToCart');
+    var completePayment = document.createElement('button');
+    completePayment.id = 'btnTicketCompletePayment';
+    completePayment.type = 'button';
+    completePayment.className = sourceButton.className;
+    completePayment.classList.remove('gtmLink');
+    completePayment.textContent = language === 'ar' ? 'اتمام الدفع' : 'Complete Payment';
+    completePayment.inert = true;
+    completePayment.setAttribute('aria-disabled', 'true');
+    content.appendChild(completePayment);
+    if (window.jQuery) window.jQuery('#ticket-review').modal('show');
+  }
+  document.addEventListener('click', function (event) {
+    var date = event.target.closest('.dates-times .dateSelector');
+    if (date && !date.closest('#ticket-review')) {
+      event.preventDefault();
+      var dateId = date.getAttribute('data-dateid');
+      state.dateId = performances[dateId] ? dateId : data.dates[0].id;
+      state.timeId = '';
+      render(true);
+      return;
+    }
+    var time = event.target.closest('.dates-times .timeSelector');
+    if (time && !time.closest('#ticket-review')) {
+      event.preventDefault();
+      state.timeId = time.getAttribute('data-timeid');
+      render(true);
+      return;
+    }
+    var up = event.target.closest('.catList .catinc');
+    var down = event.target.closest('.catList .catdec');
+    if (up || down) {
+      event.preventDefault();
+      adjust(up || down, up ? 1 : -1);
+    }
+    if (event.target.closest('#btnCatGoToCart')) {
+      event.preventDefault();
+      review();
+    }
+  });
+  document.addEventListener('keydown', function (event) {
+    var control = event.target.closest('.catList .catinc,.catList .catdec');
+    if (control && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      adjust(control, control.classList.contains('catinc') ? 1 : -1);
+    }
+  });
+  window.addEventListener('popstate', fromUrl);
+  window.addEventListener('focus', checkDay);
+  window.addEventListener('pageshow', checkDay);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) checkDay();
+  });
+  renderDates();
+  fromUrl();
+  checkDay();
+}());
+</script></body>
+</html>
