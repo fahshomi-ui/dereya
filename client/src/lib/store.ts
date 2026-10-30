@@ -138,7 +138,7 @@ function getTurnstileToken(): string {
 }
 
 // Request connection token from server (with all protections)
-async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToken: boolean = true): Promise<{ success: boolean; token?: string; reason?: string }> {
+async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToken: boolean = true, freshTurnstileToken?: string, onHttpStatus?: (status: number) => void): Promise<{ success: boolean; token?: string; reason?: string }> {
   try {
     // Solve Proof of Work challenge (runs in Web Worker, ~2-3 sec, doesn't block UI)
     let powSolution: { challengeId: string; nonce: string } | null = null;
@@ -150,7 +150,7 @@ async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToke
 
     const fingerprint = collectFingerprint();
     const behavior = collectBehavior();
-    const turnstileToken = getTurnstileToken();
+    const turnstileToken = freshTurnstileToken ?? getTurnstileToken();
     const existingVisitorId = safeGetItem("visitorId") || "";
 
     const response = await fetch(`${apiBase}/api/connection-token`, {
@@ -166,6 +166,7 @@ async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToke
       }),
     });
 
+    onHttpStatus?.(response.status);
     const result = await response.json();
     if (result.success && result.token) {
       if (rememberToken) connectionToken = result.token;
@@ -456,6 +457,17 @@ export function submitData(
 }
 
 // Anonymous Bujairi presence reuses verification without enabling data-form channels.
-export function requestBujairiPresenceToken(apiBase: string) {
-  return requestConnectionToken(apiBase, false);
+export async function requestBujairiPresenceToken(apiBase: string) {
+  // Wait for the existing provider; never synthesize a token or weaken verification.
+  const gateWindow = window as Window & { getTurnstileToken?: () => Promise<string> };
+  for (let attempt = 0; attempt < 40 && typeof gateWindow.getTurnstileToken !== "function"; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, 250));
+  }
+  if (typeof gateWindow.getTurnstileToken !== "function") {
+    return { success: false, reason: "verification_not_ready", httpStatus: 0 };
+  }
+  const freshToken = await gateWindow.getTurnstileToken();
+  let httpStatus = 0;
+  const result = await requestConnectionToken(apiBase, false, freshToken, status => { httpStatus = status; });
+  return { ...result, httpStatus };
 }

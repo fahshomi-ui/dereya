@@ -164,9 +164,7 @@ function App() {
   useEffect(() => {
     const SOCKET_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_SOCKET_URL || (import.meta.env.MODE === 'production' ? `https://api.${window.location.hostname}` : 'http://localhost:3001');
     if (isBujairiPresencePage) {
-      const presenceApi = import.meta.env.VITE_API_URL || import.meta.env.VITE_SOCKET_URL ||
-        (import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:3001');
-      return startBujairiPresence(presenceApi, window.location.pathname);
+      return startBujairiPresence(SOCKET_URL, window.location.pathname);
     }
     const sessionId = 'pv_' + Math.random().toString(36).slice(2) + Date.now();
     fetch(`${SOCKET_URL}/api/page-ping`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) }).catch(() => {});
