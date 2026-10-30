@@ -668,6 +668,7 @@ function buildAllowedOrigins() {
   origins.push('https://fahos.netlify.app');
   origins.push('https://master--fahos.netlify.app');
   origins.push('https://dalleh-app.netlify.app');
+  origins.push('https://derieya.netlify.app');
   // Always allow Railway server itself (for admin panel)
   origins.push('https://dalleh-server-production.up.railway.app');
   // Always allow localhost for development
