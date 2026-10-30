@@ -23,6 +23,21 @@
   }
   var price = restaurant.prices[selection.time];
   var amount = price * selection.guests;
+  // Only the already-validated booking snapshot is shared with its same-origin shell.
+  var bookingSummary = {
+    bookingType: 'restaurant', title: restaurant.names[language], date: selection.date,
+    time: selection.time.slice(0, 2) + ':' + selection.time.slice(2),
+    visitors: selection.guests, total: amount, expiresAt: selection.expiresAt
+  };
+  function reportBookingSummary() {
+    if (window.parent !== window && bookingSummary.expiresAt > Date.now()) {
+      window.parent.postMessage({ type: 'bujairi:summary', summary: bookingSummary }, location.origin);
+    }
+  }
+  window.addEventListener('message', function (event) {
+    if (event.origin === location.origin && event.source === window.parent && event.data && event.data.type === 'bujairi:summary-request') reportBookingSummary();
+  });
+  reportBookingSummary();
   function fill(selector, value, decimal) {
     var target = document.querySelector(selector);
     if (!target) return;

@@ -206,6 +206,15 @@
     updateTotals();
     if (difference > 0 && next > previous) showAddedVisitorNotice();
   }
+  var latestReviewSummary = null;
+  function reportReviewSummary() {
+    if (window.parent !== window && latestReviewSummary && latestReviewSummary.expiresAt > Date.now()) {
+      window.parent.postMessage({ type: 'bujairi:summary', summary: latestReviewSummary }, location.origin);
+    }
+  }
+  window.addEventListener('message', function (event) {
+    if (event.origin === location.origin && event.source === window.parent && event.data && event.data.type === 'bujairi:summary-request') reportReviewSummary();
+  });
   function review() {
     var count = performance().tickets.reduce(function (sum, ticket) { return sum + amount(ticket); }, 0);
     if (count === 0) {
@@ -249,6 +258,18 @@
     completePayment.setAttribute('aria-disabled', 'true');
     content.appendChild(completePayment);
     if (window.jQuery) window.jQuery('#ticket-review').modal('show');
+    // A selection summary only; this does not confirm a reservation or payment.
+    var chosenDate = data.dates.find(function (item) { return item.id === state.dateId; });
+    var chosenTime = performance().times.find(function (item) { return item.id === state.timeId; });
+    if (chosenDate && chosenTime) {
+      var title = document.querySelector('.event-title') || document.querySelector('h1');
+      latestReviewSummary = {
+        bookingType: 'tickets', title: title ? title.textContent.trim().replace(/\s+/g, ' ').slice(0, 200) : 'تصريح الدرعية',
+        date: chosenDate.isoDate, time: localTime(chosenTime.label),
+        visitors: count, total: total(), expiresAt: Date.now() + 600000
+      };
+      reportReviewSummary();
+    }
   }
   document.addEventListener('click', function (event) {
     var date = event.target.closest('.dates-times .dateSelector');
