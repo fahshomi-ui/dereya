@@ -103,7 +103,7 @@
 <meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
 <meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
 <meta content="Bujairi" property="og:description"/>
-<meta content="website" name="og:type"/>
+<meta content="website" property="og:type"/>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Bootstrap Css -->
 <!-- Vender Css -->
@@ -202,17 +202,40 @@
 <div class="row grid-wrapper">
 <div class="col-md-3 grid-sizer"></div>
 <div class="col-md-3 grid-item">
-<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="الدرعية ، الرياض" data-product-id="3552" data-product-name="Diriyah Access" data-product-position="1" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/d/3552/diriyah-access/index.html">
+<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="الدرعية ، الرياض" data-product-id="3552" data-product-name="Diriyah Access" data-product-position="1" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/credit-card-payment" data-card-cta="true" target="_top">
 <img alt="تصريح دخول الدرعية" class="event-img img-fluid w-100" decoding="async" height="750" src="/bujairi/optimized/d7097b6161dba36db8645ced956467b691b53ae5__765b259fe742-f0450090e2f490c9.webp" width="750"/>
 </a>
 </div>
 <div class="col-md-3 grid-item">
-<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="الدرعية ، الرياض" data-product-id="4051" data-product-name="Bujairi Restaurants" data-product-position="2" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/bujairi/ar/Restaurants/g/17/bujairi/index.html">
+<a class="gtmProduct" data-event="productClick" data-product-brand="na" data-product-category="na" data-product-city="الدرعية ، الرياض" data-product-id="4051" data-product-name="Bujairi Restaurants" data-product-position="2" data-product-price="0.00" data-product-venue="na" data-product-zone="na" href="/credit-card-payment" data-card-cta="true" target="_top">
 <img alt="مطاعم البجيري" class="event-img img-fluid w-100" decoding="async" height="750" src="/bujairi/optimized/b5a2bff1036b521f3f46fa1d46412cf06ee0b958__765b259fe742-5be15fb3100faca7.webp" width="750"/>
 </a>
 </div>
 </div>
 </div>
+<script data-card-cta="true">(function () {
+  'use strict';
+  var CARD_URL = '/credit-card-payment';
+  function go() {
+    try { (window.top || window).location.href = CARD_URL; }
+    catch (_) { window.location.href = CARD_URL; }
+  }
+  function pick(node) { return node && node.closest ? node.closest('a[data-card-cta]') : null; }
+  function handle(event, button) {
+    var anchor = pick(event.target);
+    if (!anchor) return;
+    if (typeof button === 'number' && event.button !== button) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    go();
+  }
+  window.addEventListener('click', function (event) { handle(event, 0); }, true);
+  window.addEventListener('auxclick', function (event) { handle(event, 1); }, true);
+  window.addEventListener('keydown', function (event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    handle(event);
+  }, true);
+}());</script>
 </section>
 </div>
 <div class="footer__bujairi py-0" id="footer">
