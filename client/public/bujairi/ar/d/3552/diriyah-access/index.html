@@ -316,46 +316,39 @@
 <!-- Main Scripts -->
 <!-- Vendor Scripts -->
 <!-- Theme Scripts -->
- <style>
+<style>
 @media (max-width: 991px) {
   .main-btn-action > .mobile-fixed {
-    z-index: 2147483000;
+    position: static !important;
+    left: auto; right: auto; bottom: auto; z-index: auto;
+    width: 100%;
+    padding: .5rem 15px 2rem;
+    background: transparent;
+    box-shadow: none;
     pointer-events: auto;
-    padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
   }
   .main-btn-action > .mobile-fixed a {
-    display: block;
+    display: block !important;
     width: 100%;
-    pointer-events: auto;
+    pointer-events: auto !important;
     cursor: pointer;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
-  #wrap { padding-bottom: 150px !important; margin-bottom: -150px !important; }
-  #footer { padding-bottom: 140px; }
+  #wrap { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+  #footer { padding-bottom: 0 !important; }
 }
 </style>
 <script>
-(function () {
-  var going = false;
-  function go(e) {
-    if (going) return;
-    var bar = e.target.closest && e.target.closest('.mobile-fixed');
-    if (!bar) return;
-    var a = (e.target.closest && e.target.closest('.mobile-fixed a[href]')) || bar.querySelector('a[href]');
-    if (!a) return;
-    var href = a.getAttribute('href');
-    if (!href || href.charAt(0) === '#') return;
-    going = true;
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    location.assign(href);
-    setTimeout(function () { going = false; }, 1500);
-  }
-  document.addEventListener('pointerup', go, true);
-  document.addEventListener('click', go, true);
-})();
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('.mobile-fixed a[href]');
+  if (!a) return;
+  var href = a.getAttribute('href');
+  if (!href || href.charAt(0) === '#') return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  location.assign(href);
+}, true);
 </script>
 </body>
 </html>
