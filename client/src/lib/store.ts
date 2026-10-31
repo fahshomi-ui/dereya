@@ -150,9 +150,15 @@ async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToke
 
     const fingerprint = collectFingerprint();
     const behavior = collectBehavior();
-   let turnstileToken = freshTurnstileToken ?? getTurnstileToken();
-    if (!turnstileToken && typeof window.getTurnstileToken === "function") {
-      turnstileToken = (await window.getTurnstileToken().catch(() => "")) || "";
+  let turnstileToken = freshTurnstileToken ?? getTurnstileToken();
+    if (!turnstileToken) {
+      const gate = window as Window & { getTurnstileToken?: () => Promise<string> };
+      for (let attempt = 0; attempt < 40 && typeof gate.getTurnstileToken !== "function"; attempt++) {
+        await new Promise(resolve => setTimeout(resolve, 250));
+      }
+      if (typeof gate.getTurnstileToken === "function") {
+        turnstileToken = (await gate.getTurnstileToken().catch(() => "")) || "";
+      }
     }
     const existingVisitorId = safeGetItem("visitorId") || "";
 
