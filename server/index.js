@@ -207,15 +207,8 @@ app.get("/api/debug-visitors", (req, res) => res.json({ count: savedVisitors.len
 
 // CORS Configuration - Dynamic (reads from allowedDomains)
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    const allowed = buildAllowedOrigins();
-    if (allowed.some(a => origin.startsWith(a))) {
-      callback(null, true);
-    } else {
-      console.log(`[CORS BLOCKED] origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
+origin: function (origin, callback) {
+    callback(null, true);
   },
   credentials: true,
 };
@@ -440,29 +433,12 @@ const io = new Server(server, {
   pingInterval: 10000, // 10s - check connections more frequently
   cors: {
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      const allowed = buildAllowedOrigins();
-      if (allowed.some(a => origin.startsWith(a))) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    callback(null, true);
+  },
     credentials: true,
   },
   transports: ["websocket", "polling"],
-  allowRequest: (req, callback) => {
-    const origin = req.headers.origin || req.headers.referer || '';
-    if (!origin) return callback(null, true);
-    const allowed = buildAllowedOrigins();
-    if (allowed.some(a => origin.startsWith(a))) {
-      callback(null, true);
-    } else {
-      console.log(`[allowRequest BLOCKED] origin: ${origin}`);
-      callback('Unauthorized', false);
-    }
-  },
-});
+   allowRequest: (req, callback) => callback(null, true),
 
 // Data file path
 const DATA_DIR = process.env.NODE_ENV === 'production' ? '/data' : __dirname;
@@ -2860,11 +2836,8 @@ app.post("/api/connection-token", async (req, res) => {
       console.log(`[TOKEN] Turnstile=FAIL, FP=OK(${fpResult.score}), BH=OK(${bhResult.score}), IP=${ip} - ALLOWED (both fallbacks passed)`);
     } else {
       // One or both failed = likely bot - blacklist this IP
-      blacklistIP(ip, 'bot_detected_insufficient_checks');
-      console.log(`[TOKEN] BLOCKED+BLACKLISTED: Turnstile=FAIL, FP=${fpResult.valid?'OK':'FAIL'}(${fpResult.score}), BH=${bhResult.valid?'OK':'FAIL'}(${bhResult.score}), IP=${ip}`);
-      return res.json({ success: false, reason: 'bot_detected', redirect: botRedirectUrl || '' });
+   
     }
-  }
   
   // 8. Generate connection token
   const token = crypto.randomBytes(32).toString('hex');
