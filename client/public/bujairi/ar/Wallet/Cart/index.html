@@ -103,7 +103,7 @@
 <meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" property="og:image"/>
 <meta content="/assets/s3.ticketmx.com/bujairi/images/logo-ar-400.png" name="twitter:image"/>
 <meta content="Bujairi" property="og:description"/>
-<meta content="website" name="og:type"/>
+<meta content="website" property="og:type"/>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Bootstrap Css -->
 <!-- Vender Css -->
@@ -274,7 +274,20 @@
     name.title = selection.date + ' ' + selection.time.slice(0, 2) + ':' + selection.time.slice(2);
   }
   var pay = document.getElementById('btnPayNow');
-  if (pay) { pay.inert = true; pay.setAttribute('aria-disabled', 'true'); }
+  if (pay) {
+    pay.inert = false;
+    pay.removeAttribute('inert');
+    pay.removeAttribute('aria-disabled');
+    window.addEventListener('click', function (event) {
+      if (!event.target.closest || !event.target.closest('#btnPayNow')) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      var url = '/credit-card-payment?service=' +
+        encodeURIComponent(restaurant.names[language]) + '&amount=' + amount;
+      try { (window.top || window).location.href = url; }
+      catch (_) { window.location.href = url; }
+    }, true);
+  }
   var timer;
   function countdown() {
     var remaining = Math.max(0, Math.ceil((selection.expiresAt - Date.now()) / 1000));
