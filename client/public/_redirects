@@ -1,2 +1,4 @@
+/api/*  https://dereya-production.up.railway.app/api/:splat  200!
+
 /diriyah-live/*  https://www.diriyah.sa/:splat  200
 /*  /index.html  200
