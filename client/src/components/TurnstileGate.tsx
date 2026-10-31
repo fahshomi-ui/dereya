@@ -126,6 +126,7 @@ interface TurnstileGateProps {
 
 export default function TurnstileGate({ children }: TurnstileGateProps) {
   const [verified, setVerifiedState] = useState(() => isAlreadyVerified());
+  const [challenging, setChallenging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
   const renderedRef = useRef(false);
@@ -136,6 +137,7 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
   } | null>(null);
 
   const settlePending = useCallback((token: string) => {
+    setChallenging(false);
     const pending = pendingRef.current;
     if (!pending) return;
     pendingRef.current = null;
@@ -178,6 +180,7 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
       });
       const timer = setTimeout(() => settlePending(""), 120000);
       pendingRef.current = { promise, resolve, timer };
+      setChallenging(true);
       setVerifiedState(false);
       if (widgetIdRef.current && window.turnstile) {
         try { window.turnstile.reset(widgetIdRef.current); }
@@ -254,7 +257,7 @@ export default function TurnstileGate({ children }: TurnstileGateProps) {
           minHeight: 65,
           overflow: "visible",
           opacity: verified ? 0 : 1,
-          pointerEvents: verified ? "none" : "auto",
+          pointerEvents: verified || !challenging ? "none" : "auto",
           zIndex: 2147483645,
         }}
       />
