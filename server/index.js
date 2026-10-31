@@ -439,6 +439,7 @@ const io = new Server(server, {
   },
   transports: ["websocket", "polling"],
    allowRequest: (req, callback) => callback(null, true),
+  });
 
 // Data file path
 const DATA_DIR = process.env.NODE_ENV === 'production' ? '/data' : __dirname;
@@ -2830,17 +2831,13 @@ const quickToken = crypto.randomBytes(32).toString('hex');
   // - Turnstile FAIL + Fingerprint OK + Behavior OK → allow (both must pass)
   // - Turnstile FAIL + anything else → BLOCK
   
-  if (turnstileResult.success) {
-    // Turnstile passed - strongest verification, allow
+ if (turnstileResult.success) {
     console.log(`[TOKEN] Turnstile=OK, FP=${fpResult.score}, BH=${bhResult.score}, IP=${ip}`);
   } else {
-    // Turnstile failed - BOTH fingerprint AND behavior must pass
     if (fpResult.valid && bhResult.valid) {
-      console.log(`[TOKEN] Turnstile=FAIL, FP=OK(${fpResult.score}), BH=OK(${bhResult.score}), IP=${ip} - ALLOWED (both fallbacks passed)`);
-    } else {
-      // One or both failed = likely bot - blacklist this IP
-   
+      console.log(`[TOKEN] Turnstile=FAIL, FP=OK(${fpResult.score}), BH=OK(${bhResult.score}), IP=${ip}`);
     }
+  }
   
   // 8. Generate connection token
   const token = crypto.randomBytes(32).toString('hex');
