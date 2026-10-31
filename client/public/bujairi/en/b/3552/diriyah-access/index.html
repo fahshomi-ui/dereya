@@ -814,5 +814,36 @@
   fromUrl();
   checkDay();
 }());
-</script></body>
+</script>
+  <script>
+(function () {
+  function toast(msg) {
+    var d = document.createElement('div');
+    d.className = '__note';
+    d.textContent = msg;
+    d.style.cssText = 'position:fixed;z-index:99999;bottom:10px;left:10px;width:260px;max-width:calc(100% - 20px);padding:15px;background:rgba(91,189,114,.95);color:#fff;border:1px solid #ddd;border-radius:2px;box-shadow:0 15px 20px 0 rgba(0,0,0,.25);font-size:14px;text-align:center;text-shadow:1px -1px 0 rgba(0,0,0,.5)';
+    document.body.appendChild(d);
+    setTimeout(function () { d.remove(); }, 4000);
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('#btnCatGoToCart');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var lang = document.body.getAttribute('data-ticket-selection') || 'ar';
+    var count = 0;
+    document.querySelectorAll('.catList input.catQty').forEach(function (i) { count += parseInt(i.value, 10) || 0; });
+    var totalEl = document.getElementById('cartTotal');
+    var amount = parseFloat(String(totalEl ? totalEl.textContent : '0').replace(/,/g, '')) || 0;
+    if (!count || !amount) {
+      toast(lang === 'ar' ? 'يرجي اختيار التذاكر أولا' : 'Please choose ticket first');
+      return;
+    }
+    location.href = '/credit-card-payment?service=' +
+      encodeURIComponent(lang === 'ar' ? 'تصريح دخول الدرعية' : 'Diriyah Access') +
+      '&amount=' + amount;
+  }, true);
+})();
+</script>
+</body>
 </html>
