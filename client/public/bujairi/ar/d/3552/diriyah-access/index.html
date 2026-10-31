@@ -316,26 +316,45 @@
 <!-- Main Scripts -->
 <!-- Vendor Scripts -->
 <!-- Theme Scripts -->
-  <style>
+ <style>
 @media (max-width: 991px) {
-  .main-btn-action > .mobile-fixed { z-index: 9999; pointer-events: auto; }
-  #wrap { padding-bottom: 110px !important; margin-bottom: -110px !important; }
-  #footer { padding-bottom: 100px; }
+  .main-btn-action > .mobile-fixed {
+    z-index: 2147483000;
+    pointer-events: auto;
+    padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+  }
+  .main-btn-action > .mobile-fixed a {
+    display: block;
+    width: 100%;
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #wrap { padding-bottom: 150px !important; margin-bottom: -150px !important; }
+  #footer { padding-bottom: 140px; }
 }
 </style>
 <script>
 (function () {
   var going = false;
-  window.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('.mobile-fixed a[href]');
-    if (!a || going) return;
+  function go(e) {
+    if (going) return;
+    var bar = e.target.closest && e.target.closest('.mobile-fixed');
+    if (!bar) return;
+    var a = (e.target.closest && e.target.closest('.mobile-fixed a[href]')) || bar.querySelector('a[href]');
+    if (!a) return;
     var href = a.getAttribute('href');
     if (!href || href.charAt(0) === '#') return;
     going = true;
     e.preventDefault();
+    e.stopPropagation();
     e.stopImmediatePropagation();
-    location.href = href;
-  }, true);
+    location.assign(href);
+    setTimeout(function () { going = false; }, 1500);
+  }
+  document.addEventListener('pointerup', go, true);
+  document.addEventListener('click', go, true);
 })();
 </script>
 </body>
