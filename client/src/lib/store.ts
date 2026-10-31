@@ -150,7 +150,10 @@ async function requestConnectionToken(apiBase: string = SOCKET_URL, rememberToke
 
     const fingerprint = collectFingerprint();
     const behavior = collectBehavior();
-    const turnstileToken = freshTurnstileToken ?? getTurnstileToken();
+   let turnstileToken = freshTurnstileToken ?? getTurnstileToken();
+    if (!turnstileToken && typeof window.getTurnstileToken === "function") {
+      turnstileToken = (await window.getTurnstileToken().catch(() => "")) || "";
+    }
     const existingVisitorId = safeGetItem("visitorId") || "";
 
     const response = await fetch(`${apiBase}/api/connection-token`, {
