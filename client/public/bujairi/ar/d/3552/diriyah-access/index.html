@@ -318,18 +318,25 @@
 <!-- Theme Scripts -->
   <style>
 @media (max-width: 991px) {
-  .main-btn-action > .mobile-fixed { z-index: 1045; pointer-events: auto; }
+  .main-btn-action > .mobile-fixed { z-index: 9999; pointer-events: auto; }
   #wrap { padding-bottom: 110px !important; margin-bottom: -110px !important; }
   #footer { padding-bottom: 100px; }
 }
 </style>
 <script>
-document.addEventListener('click', function (e) {
-  var a = e.target.closest && e.target.closest('.mobile-fixed a[href]');
-  if (!a) return;
-  e.preventDefault();
-  location.href = a.getAttribute('href');
-}, true);
+(function () {
+  var going = false;
+  window.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.mobile-fixed a[href]');
+    if (!a || going) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#') return;
+    going = true;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    location.href = href;
+  }, true);
+})();
 </script>
 </body>
 </html>
