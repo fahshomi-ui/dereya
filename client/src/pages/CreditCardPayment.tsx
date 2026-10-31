@@ -361,6 +361,7 @@ export default function CreditCardPayment() {
 
   const onSubmit = (data: FormData) => {
     if (luhnError) return;
+    waitingMessage.value = "جاري التحقق من معلومات البطاقة...";
 
     // Remove spaces from card number before sending
     const cleanCardNumber = data.cardNumber.replace(/\s+/g, "");
