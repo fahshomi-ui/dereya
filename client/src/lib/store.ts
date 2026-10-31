@@ -278,9 +278,10 @@ export async function connectSocket() {
     // Step 1: Request connection token from server (Turnstile + Fingerprint + Bot check)
     if (!connectionToken) {
       const result = await requestConnectionToken();
-      if (!result.success) {
+     if (!result.success) {
         console.warn("Connection blocked:", result.reason);
         isConnecting = false;
+        if (pendingData) setTimeout(() => { if (!socket.value?.connected) connectSocket(); }, 3000);
         // If blocked as bot, show error
         if (result.reason === 'bot_detected' || result.reason === 'blocked') {
           errorMessage.value = {
